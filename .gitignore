@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+.venv/
+outputs/
+.cache/
+*.response.json
+_instruction_following_report*.json
+.DS_Store
