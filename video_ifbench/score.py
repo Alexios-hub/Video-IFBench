@@ -214,7 +214,17 @@ def evaluate_response(path: Path, judge_client: OpenAICompatibleClient, extract_
     rule_results = evaluate_rule_constraints(extract_client, instruction, response_text, rule_items, spec_map)
     llm_results = evaluate_llm_constraints(judge_client, instruction, response_text, llm_items)
     task_results = evaluate_task_items(task_client, instruction, response_text, tasks)
-    constraint_results = sorted(rule_results + llm_results, key=lambda x: constraints.index(next(c for c in constraints if c is x or c.get("constraint_id") == x.get("constraint_id") and c.get("checklist_query") == x.get("checklist_query"))) if constraints else 0)
+    result_buckets = {"rule": list(rule_results), "llm": list(llm_results)}
+    constraint_results = []
+    for original in constraints:
+        cid = ensure_text(original.get("constraint_id"))
+        bucket_name = "rule" if cid in spec_map else "llm"
+        bucket = result_buckets[bucket_name]
+        match_index = next((i for i, item in enumerate(bucket) if item.get("constraint_id") == original.get("constraint_id") and item.get("checklist_query") == original.get("checklist_query")), None)
+        if match_index is not None:
+            constraint_results.append(bucket.pop(match_index))
+    constraint_results.extend(result_buckets["rule"])
+    constraint_results.extend(result_buckets["llm"])
     c_passed = sum(int(bool(x.get("passed"))) for x in constraint_results)
     c_total = len(constraint_results)
     t_passed = sum(int(bool(x.get("passed"))) for x in task_results)
