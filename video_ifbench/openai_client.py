@@ -3,9 +3,21 @@ from __future__ import annotations
 import json
 import os
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Mapping, Optional
 
 import requests
+
+
+def raise_for_status_with_body(response: requests.Response) -> None:
+    if response.ok:
+        return
+    body = response.text.strip()
+    if len(body) > 2000:
+        body = body[:2000] + "...<truncated>"
+    message = f"{response.status_code} {response.reason} for url: {response.url}"
+    if body:
+        message = f"{message}; response body: {body}"
+    raise requests.HTTPError(message, response=response)
 
 
 class OpenAICompatibleClient:
@@ -27,6 +39,7 @@ class OpenAICompatibleClient:
         temperature: float = 0.0,
         top_p: Optional[float] = None,
         max_tokens: Optional[int] = None,
+        chat_template_kwargs: Optional[Mapping[str, Any]] = None,
     ) -> None:
         self.api_base = api_base.rstrip("/")
         self.model = model
@@ -35,6 +48,7 @@ class OpenAICompatibleClient:
         self.temperature = temperature
         self.top_p = top_p
         self.max_tokens = max_tokens
+        self.chat_template_kwargs = dict(chat_template_kwargs or {})
 
     def chat(self, messages: List[Dict[str, Any]], *, response_format: Optional[Dict[str, Any]] = None) -> str:
         payload: Dict[str, Any] = {
@@ -46,18 +60,23 @@ class OpenAICompatibleClient:
             payload["top_p"] = self.top_p
         if self.max_tokens is not None:
             payload["max_tokens"] = self.max_tokens
+        if self.chat_template_kwargs:
+            payload["chat_template_kwargs"] = self.chat_template_kwargs
         if response_format is not None:
             payload["response_format"] = response_format
         headers = {"Content-Type": "application/json"}
         if self.api_key:
             headers["Authorization"] = f"Bearer {self.api_key}"
         response = requests.post(f"{self.api_base}/chat/completions", headers=headers, json=payload, timeout=self.timeout)
-        response.raise_for_status()
+        raise_for_status_with_body(response)
         data = response.json()
         return str(data["choices"][0]["message"].get("content") or "")
 
     def runtime_meta(self) -> Dict[str, Any]:
-        return {"api_base": self.api_base, "model": self.model}
+        meta = {"api_base": self.api_base, "model": self.model}
+        if self.chat_template_kwargs:
+            meta["chat_template_kwargs"] = self.chat_template_kwargs
+        return meta
 
 
 def extract_json_object(text: str) -> Any:

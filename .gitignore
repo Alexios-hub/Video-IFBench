@@ -3,8 +3,10 @@ __pycache__/
 *.egg-info/
 .env
 .venv/
+data/
 outputs/
 .cache/
+.pytest_cache/
 *.response.json
 _instruction_following_report*.json
 .DS_Store

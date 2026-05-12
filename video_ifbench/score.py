@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 import time
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence
+from typing import Any, Dict, List, Mapping, Optional, Sequence
 
 from tqdm import tqdm
 
@@ -79,21 +80,54 @@ def build_rule_constraint_spec_map() -> Dict[str, List[Dict[str, Any]]]:
     return {str(k): list(v or []) for k, v in CONSTRAINT_FUNCTION_SPECS.items()}
 
 
+def function_spec_name(spec: Mapping[str, Any]) -> str:
+    return ensure_text(spec.get("function_name") or spec.get("name"))
+
+
+def _unwrap_optional_type(param_type: str) -> str:
+    text = ensure_text(param_type)
+    if text.startswith("Optional[") and text.endswith("]"):
+        return text[len("Optional[") : -1]
+    return text
+
+
 def _coerce_parameter_value(param_type: str, value: Any) -> Any:
-    kind = ensure_text(param_type).lower()
+    kind = _unwrap_optional_type(param_type)
+    kind_lower = kind.lower()
     if value is None:
         return None
-    if kind in {"int", "integer"}:
+    if kind.startswith("List[") and kind.endswith("]"):
+        inner = kind[len("List[") : -1]
+        if isinstance(value, list):
+            values = value
+        elif isinstance(value, str):
+            stripped = value.strip()
+            if stripped.startswith("[") and stripped.endswith("]"):
+                try:
+                    loaded = json.loads(stripped)
+                    values = loaded if isinstance(loaded, list) else [value]
+                except json.JSONDecodeError:
+                    values = [value]
+            else:
+                values = [value]
+        else:
+            values = [value]
+        return [
+            item
+            for item in (_coerce_parameter_value(inner, entry) for entry in values)
+            if item is not None and ensure_text(item) != ""
+        ]
+    if kind_lower in {"int", "integer"}:
         try:
-            return int(value)
+            return int(float(value))
         except Exception:
             return None
-    if kind in {"float", "number"}:
+    if kind_lower in {"float", "number"}:
         try:
             return float(value)
         except Exception:
             return None
-    if kind in {"bool", "boolean"}:
+    if kind_lower in {"bool", "boolean"}:
         if isinstance(value, bool):
             return value
         text = ensure_text(value).lower()
@@ -102,9 +136,11 @@ def _coerce_parameter_value(param_type: str, value: Any) -> Any:
         if text in {"false", "no", "0"}:
             return False
         return None
-    if kind in {"list", "array"}:
+    if kind_lower in {"list", "array"}:
         return value if isinstance(value, list) else [value]
-    return ensure_text(value)
+    if kind_lower in {"str", "string"}:
+        return ensure_text(value)
+    return value
 
 
 def sanitize_rule_parameters(function_spec: Dict[str, Any], parameters: Any) -> Dict[str, Any]:
@@ -112,11 +148,12 @@ def sanitize_rule_parameters(function_spec: Dict[str, Any], parameters: Any) -> 
     allowed = {ensure_text(x.get("name")): x for x in function_spec.get("parameters", []) if isinstance(x, dict) and ensure_text(x.get("name"))}
     result: Dict[str, Any] = {}
     for name, value in raw.items():
-        if name not in allowed:
+        key = ensure_text(name)
+        if key not in allowed:
             continue
-        coerced = _coerce_parameter_value(ensure_text(allowed[name].get("type")), value)
+        coerced = _coerce_parameter_value(ensure_text(allowed[key].get("type")), value)
         if coerced is not None and coerced != "":
-            result[name] = coerced
+            result[key] = coerced
     for name, spec in allowed.items():
         if name not in result and "default" in spec:
             result[name] = _coerce_parameter_value(ensure_text(spec.get("type")), spec.get("default"))
@@ -174,7 +211,7 @@ def evaluate_rule_constraints(client: OpenAICompatibleClient, instruction: str, 
         planned = extracted.get("function_calls") if isinstance(extracted.get("function_calls"), list) else []
         planned_by_name = {ensure_text(x.get("function_name")): x for x in planned if isinstance(x, dict)}
         for spec in spec_map.get(cid, []):
-            fname = ensure_text(spec.get("name"))
+            fname = function_spec_name(spec)
             if fname not in FUNCTION_REGISTRY:
                 function_results.append({"function_name": fname, "passed": False, "reason": "Function not found in registry.", "details": {}})
                 continue
@@ -197,6 +234,21 @@ def load_response(path: Path) -> Dict[str, Any]:
 
 def discover_response_jsons(response_dir: Path) -> List[Path]:
     return sorted(response_dir.rglob("*.response.json"))
+
+
+def positive_int(value: str) -> int:
+    parsed = int(value)
+    if parsed < 1:
+        raise argparse.ArgumentTypeError("must be >= 1")
+    return parsed
+
+
+def thinking_chat_template_kwargs(mode: str) -> Optional[Dict[str, bool]]:
+    if mode == "auto":
+        return None
+    if mode == "enabled":
+        return {"enable_thinking": True}
+    return {"enable_thinking": False}
 
 
 def evaluate_response(path: Path, judge_client: OpenAICompatibleClient, extract_client: OpenAICompatibleClient, task_client: OpenAICompatibleClient, spec_map: Mapping[str, List[Dict[str, Any]]]) -> Dict[str, Any]:
@@ -267,24 +319,41 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--max-tokens", type=int, default=4096)
     parser.add_argument("--timeout-sec", type=float, default=300.0)
+    parser.add_argument("--concurrency", type=positive_int, default=1, help="Number of response files to score concurrently.")
+    parser.add_argument("--thinking-mode", choices=["disabled", "enabled", "auto"], default="disabled", help="Pass Qwen/vLLM enable_thinking chat-template kwargs for judge calls. Default: disabled.")
+    parser.add_argument("--enable-thinking", action="store_const", dest="thinking_mode", const="enabled", help="Shortcut for --thinking-mode enabled.")
+    parser.add_argument("--disable-thinking", action="store_const", dest="thinking_mode", const="disabled", help="Shortcut for --thinking-mode disabled.")
     return parser.parse_args()
+
+
+def score_one_response(path: Path, judge: OpenAICompatibleClient, extract: OpenAICompatibleClient, task: OpenAICompatibleClient, spec_map: Mapping[str, List[Dict[str, Any]]]) -> Dict[str, Any]:
+    try:
+        return evaluate_response(path, judge, extract, task, spec_map)
+    except Exception as exc:
+        return {"case_id": path.stem, "status": "error", "response_json": str(path), "error": {"type": type(exc).__name__, "message": str(exc)}}
 
 
 def main() -> None:
     args = parse_args()
     started = time.time()
     response_paths = [Path(args.response_json)] if args.response_json else discover_response_jsons(Path(args.response_dir))
-    judge = OpenAICompatibleClient(api_base=args.judge_api_base, model=args.judge_model, api_key=args.judge_api_key, api_key_env=args.judge_api_key_env, temperature=args.temperature, max_tokens=args.max_tokens, timeout=args.timeout_sec)
-    extract = OpenAICompatibleClient(api_base=args.extract_api_base or args.judge_api_base, model=args.extract_model or args.judge_model, api_key=args.judge_api_key, api_key_env=args.judge_api_key_env, temperature=args.temperature, max_tokens=args.max_tokens, timeout=args.timeout_sec)
-    task = OpenAICompatibleClient(api_base=args.task_judge_api_base or args.judge_api_base, model=args.task_judge_model or args.judge_model, api_key=args.judge_api_key, api_key_env=args.judge_api_key_env, temperature=args.temperature, max_tokens=args.max_tokens, timeout=args.timeout_sec)
+    chat_template_kwargs = thinking_chat_template_kwargs(args.thinking_mode)
+    judge = OpenAICompatibleClient(api_base=args.judge_api_base, model=args.judge_model, api_key=args.judge_api_key, api_key_env=args.judge_api_key_env, temperature=args.temperature, max_tokens=args.max_tokens, timeout=args.timeout_sec, chat_template_kwargs=chat_template_kwargs)
+    extract = OpenAICompatibleClient(api_base=args.extract_api_base or args.judge_api_base, model=args.extract_model or args.judge_model, api_key=args.judge_api_key, api_key_env=args.judge_api_key_env, temperature=args.temperature, max_tokens=args.max_tokens, timeout=args.timeout_sec, chat_template_kwargs=chat_template_kwargs)
+    task = OpenAICompatibleClient(api_base=args.task_judge_api_base or args.judge_api_base, model=args.task_judge_model or args.judge_model, api_key=args.judge_api_key, api_key_env=args.judge_api_key_env, temperature=args.temperature, max_tokens=args.max_tokens, timeout=args.timeout_sec, chat_template_kwargs=chat_template_kwargs)
     spec_map = build_rule_constraint_spec_map()
     cases: Dict[str, Dict[str, Any]] = {}
-    for path in tqdm(response_paths, desc="Video-IFBench score"):
-        try:
-            result = evaluate_response(path, judge, extract, task, spec_map)
-        except Exception as exc:
-            result = {"case_id": path.stem, "status": "error", "response_json": str(path), "error": {"type": type(exc).__name__, "message": str(exc)}}
-        cases[ensure_text(result.get("case_id")) or path.stem] = result
+    if args.concurrency == 1:
+        for path in tqdm(response_paths, desc="Video-IFBench score"):
+            result = score_one_response(path, judge, extract, task, spec_map)
+            cases[ensure_text(result.get("case_id")) or path.stem] = result
+    else:
+        with ThreadPoolExecutor(max_workers=args.concurrency) as executor:
+            future_to_path = {executor.submit(score_one_response, path, judge, extract, task, spec_map): path for path in response_paths}
+            for future in tqdm(as_completed(future_to_path), total=len(future_to_path), desc="Video-IFBench score"):
+                path = future_to_path[future]
+                result = future.result()
+                cases[ensure_text(result.get("case_id")) or path.stem] = result
     report = {
         "_meta": {
             "generated_by": "video-ifbench-score",
@@ -292,6 +361,8 @@ def main() -> None:
             "response_json": args.response_json,
             "output_json": args.output_json,
             "source_case_count": len(response_paths),
+            "concurrency": args.concurrency,
+            "thinking_mode": args.thinking_mode,
             "elapsed_sec": round(time.time() - started, 3),
             "judge_runtime": judge.runtime_meta(),
             "extract_runtime": extract.runtime_meta(),

@@ -27,7 +27,7 @@ def image_to_data_url(image: Image.Image, *, max_long_side: int = 720, quality: 
     return f"data:image/jpeg;base64,{encoded}"
 
 
-def sample_video_frames(video_path: str | Path, *, max_frames: int = 32, fps: float | None = None, max_long_side: int = 720) -> List[str]:
+def sample_video_frames(video_path: str | Path, *, max_frames: int | None = None, fps: float | None = 1.0, max_long_side: int = 720) -> List[str]:
     """Return sampled video frames as JPEG data URLs."""
     import cv2
 
@@ -38,17 +38,22 @@ def sample_video_frames(video_path: str | Path, *, max_frames: int = 32, fps: fl
     total = int(cap.get(cv2.CAP_PROP_FRAME_COUNT) or 0)
     native_fps = float(cap.get(cv2.CAP_PROP_FPS) or 0.0)
     if total <= 0:
-        indices = list(range(max_frames))
+        indices = [] if max_frames is None else list(range(max_frames))
     elif fps and native_fps > 0:
         step = max(1, int(round(native_fps / fps)))
-        indices = list(range(0, total, step))[:max_frames]
+        indices = list(range(0, total, step))
+        if max_frames is not None:
+            indices = indices[:max_frames]
     else:
-        if max_frames <= 0:
-            max_frames = 1
-        if total <= max_frames:
+        if max_frames is None:
             indices = list(range(total))
         else:
-            indices = [round(i * (total - 1) / (max_frames - 1)) for i in range(max_frames)]
+            if max_frames <= 0:
+                max_frames = 1
+            if total <= max_frames:
+                indices = list(range(total))
+            else:
+                indices = [round(i * (total - 1) / (max_frames - 1)) for i in range(max_frames)]
     frames: List[str] = []
     for idx in indices:
         cap.set(cv2.CAP_PROP_POS_FRAMES, int(idx))
