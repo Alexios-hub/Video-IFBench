@@ -6,6 +6,7 @@ __pycache__/
 data/
 outputs/
 .cache/
+tmp/
 .pytest_cache/
 *.response.json
 _instruction_following_report*.json
