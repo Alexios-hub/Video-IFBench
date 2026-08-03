@@ -1,370 +1,853 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Video-IFBench evaluates whether multimodal large language models can follow compositional instructions in video-understanding scenarios."
-    />
-    <meta name="theme-color" content="#081c35" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Video-IFBench evaluates instruction following of multimodal large language models in video understanding scenarios.">
+  <meta property="og:title" content="Video-IFBench">
+  <meta property="og:description" content="Evaluating instruction following of multimodal LLMs in video understanding scenarios.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Video-IFBench</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
+  <link rel="stylesheet" href="assets/fonts/open-sans.css">
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/project.css">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+  <main>
+    <section class="hero-section">
+      <div class="container d-flex flex-column align-items-center">
+        <div class="row w-100 text-center" id="title">
+          <div class="col">
+            <p class="text-center text-title mb-3">
+              <span class="project-name">Video-IFBench</span>
+              <span class="project-subtitle">Evaluating Instruction Following of Multimodal LLMs<br class="d-none d-md-block"> in Video Understanding Scenarios</span>
+            </p>
 
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Video-IFBench" />
-    <meta
-      property="og:description"
-      content="Benchmarking instruction following in video understanding: 706 videos, 1,465 instructions, and 7,794 constraints."
-    />
-    <meta property="og:url" content="https://alexios-hub.github.io/Video-IFBench/" />
-    <meta
-      property="og:image"
-      content="https://alexios-hub.github.io/Video-IFBench/assets/og.jpg"
-    />
-    <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:width" content="1731" />
-    <meta property="og:image:height" content="909" />
-    <meta property="og:image:alt" content="Video-IFBench project preview" />
-    <meta name="twitter:card" content="summary_large_image" />
+            <div class="publication-authors author-list">
+              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Hongbo_Liu7" target="_blank" rel="noopener">Hongbo Liu</a><sup>1,*</sup>,</span>
+              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Peixian_Chen2" target="_blank" rel="noopener">Peixian Chen</a><sup>2,*</sup>,</span>
+              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Sihan_liu6" target="_blank" rel="noopener">Sihan Liu</a><sup>2</sup>,</span>
+              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Peiyuan_Zhang3" target="_blank" rel="noopener">Peiyuan Zhang</a><sup>3</sup>,</span>
+              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Kai_Zou4" target="_blank" rel="noopener">Kai Zou</a><sup>4</sup>,</span>
+              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Dian_Zheng1" target="_blank" rel="noopener">Dian Zheng</a><sup>5</sup>,</span>
+              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Xiaoxing_Hu2" target="_blank" rel="noopener">Xiaoxing Hu</a><sup>3</sup>,</span>
+              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Yuhao_Dong1" target="_blank" rel="noopener">Yuhao Dong</a><sup>6</sup>,</span>
+              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Mengdan_Zhang2" target="_blank" rel="noopener">Mengdan Zhang</a><sup>2</sup>,</span>
+              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Yunhang_Shen1" target="_blank" rel="noopener">Yunhang Shen</a><sup>2</sup>,</span>
+              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Haoyu_Cao1" target="_blank" rel="noopener">Haoyu Cao</a><sup>2</sup>,</span>
+              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Wei_Liu3" target="_blank" rel="noopener">Wei Liu</a><sup>2</sup>,</span>
+              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Weibo_Gu2" target="_blank" rel="noopener">Weibo Gu</a><sup>2</sup>,</span>
+              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Xing_Sun1" target="_blank" rel="noopener">Xing Sun</a><sup>2</sup>,</span>
+              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Shengjie_Zhao1" target="_blank" rel="noopener">Shengjie Zhao</a><sup>1,&dagger;</sup></span>
+            </div>
 
-    <title>Video-IFBench — Instruction Following for Video Understanding</title>
-    <script>document.documentElement.classList.add("js");</script>
-    <link rel="stylesheet" href="assets/site.css" />
-    <script defer src="assets/site.js"></script>
-  </head>
-  <body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
+            <div class="publication-authors author-note">
+              <span class="list-inline-item">* Equal contribution</span>
+              <span class="list-inline-item">&dagger; Corresponding author</span>
+            </div>
 
-    <header class="site-header" data-header>
-      <div class="nav-shell">
-        <a class="brand" href="#top" aria-label="Video-IFBench home">
-          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
-          <span>Video-IFBench</span>
-        </a>
-        <button
-          class="menu-toggle"
-          type="button"
-          aria-expanded="false"
-          aria-controls="site-nav"
-          data-menu-toggle
-        >
-          <span class="sr-only">Toggle navigation</span>
-          <span></span><span></span><span></span>
-        </button>
-        <nav id="site-nav" class="site-nav" aria-label="Primary navigation" data-menu>
-          <a href="#overview">Overview</a>
-          <a href="#benchmark">Benchmark</a>
-          <a href="#evaluation">Evaluation</a>
-          <a href="#toolkit">Toolkit</a>
-          <a href="#citation">Citation</a>
-        </nav>
+            <div class="publication-authors affiliation-line">
+              <span class="list-inline-item"><sup>1</sup> TJU</span>
+              <span class="list-inline-item"><sup>2</sup> Tencent Youtu Lab</span>
+              <span class="list-inline-item"><sup>3</sup> SJTU</span>
+              <span class="list-inline-item"><sup>4</sup> USTC</span>
+              <span class="list-inline-item"><sup>5</sup> CUHK</span>
+              <span class="list-inline-item"><sup>6</sup> NTU</span>
+            </div>
+
+            <div class="row" id="resources">
+              <div class="col text-center">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item">
+                    <a class="resource-button" href="https://openreview.net/forum?id=5X5p1XGhZE" target="_blank" rel="noopener"><i class="bi bi-file-earmark-text"></i> Paper</a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a class="resource-button" href="https://github.com/Alexios-hub/Video-IFBench" target="_blank" rel="noopener"><i class="bi bi-github"></i> Code</a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a class="resource-button" href="https://huggingface.co/datasets/Alexislhb/Video-IFBench" target="_blank" rel="noopener"><i class="bi bi-database"></i> Dataset</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </header>
+    </section>
 
-    <main id="main-content">
-      <section id="top" class="hero section-shell">
-        <div class="hero-copy">
-          <p class="eyebrow">A benchmark for multimodal instruction following</p>
-          <h1>Video-<span>IF</span>Bench</h1>
-          <p class="hero-subtitle">
-            Evaluating Instruction Following of Multimodal LLMs<br class="desktop-break" />
-            in Video Understanding Scenarios
-          </p>
+    <section id="overview">
+      <div class="container">
+        <p class="text-header">Overview</p>
+        <ul class="body-text overview-list">
+          <li><strong>Video-IFBench</strong> is a comprehensive benchmark for instruction following in video understanding. It contains 1.5K high-quality samples over more than 700 videos and spans four instruction templates, 32 video-understanding task types, and 39 semantic or format constraints.</li>
+          <li>Its semi-automatic construction pipeline combines MLLM-assisted video annotation, task and constraint sampling, complex instruction generation, checklist construction, programmatic processing, and rigorous human verification.</li>
+          <li>An evaluation of more than 20 recent MLLMs shows that even the strongest model reaches only <strong>54.5 TISR</strong>. Models struggle most with many constraints, semantic constraints, and conditional structures that require choosing the correct branch or path from video evidence.</li>
+        </ul>
 
-          <div class="authors" aria-label="Authors">
-            <a href="https://openreview.net/profile?id=~Hongbo_Liu7">Hongbo Liu<sup>1,*</sup></a>
-            <a href="https://openreview.net/profile?id=~Peixian_Chen2">Peixian Chen<sup>2,*</sup></a>
-            <a href="https://openreview.net/profile?id=~Sihan_liu6">Sihan Liu<sup>2</sup></a>
-            <a href="https://openreview.net/profile?id=~Peiyuan_Zhang3">Peiyuan Zhang<sup>3</sup></a>
-            <a href="https://openreview.net/profile?id=~Kai_Zou4">Kai Zou<sup>4</sup></a>
-            <a href="https://openreview.net/profile?id=~Dian_Zheng1">Dian Zheng<sup>5</sup></a>
-            <a href="https://openreview.net/profile?id=~Xiaoxing_Hu2">Xiaoxing Hu<sup>3</sup></a>
-            <a href="https://openreview.net/profile?id=~Yuhao_Dong1">Yuhao Dong<sup>6</sup></a>
-            <a href="https://openreview.net/profile?id=~Mengdan_Zhang2">Mengdan Zhang<sup>2</sup></a>
-            <a href="https://openreview.net/profile?id=~Yunhang_Shen1">Yunhang Shen<sup>2</sup></a>
-            <a href="https://openreview.net/profile?id=~Haoyu_Cao1">Haoyu Cao<sup>2</sup></a>
-            <a href="https://openreview.net/profile?id=~Wei_Liu3">Wei Liu<sup>2</sup></a>
-            <a href="https://openreview.net/profile?id=~Weibo_Gu2">Weibo Gu<sup>2</sup></a>
-            <a href="https://openreview.net/profile?id=~Xing_Sun1">Xing Sun<sup>2</sup></a>
-            <a href="https://openreview.net/profile?id=~Shengjie_Zhao1">Shengjie Zhao<sup>1,†</sup></a>
-          </div>
+        <figure class="paper-figure figure-frame">
+          <img src="assets/paper/overview.webp" alt="Video-IFBench data construction pipeline, from video curation through instruction and checklist generation" width="2600" height="1962">
+          <figcaption><strong>Figure 1.</strong> The Video-IFBench construction pipeline. Curated videos receive global descriptions and timestamped facts; these support Single/Multi instructions and condition-based Selection/Nested instructions, each paired with a verifiable checklist.</figcaption>
+        </figure>
+      </div>
+    </section>
 
-          <div class="affiliations" aria-label="Affiliations">
-            <span><sup>1</sup>Tongji Univ.</span>
-            <span><sup>2</sup>Tencent Youtu Lab</span>
-            <span><sup>3</sup>SJTU</span>
-            <span><sup>4</sup>USTC</span>
-            <span><sup>5</sup>CUHK</span>
-            <span><sup>6</sup>NTU</span>
-          </div>
-          <p class="author-notes"><span><sup>*</sup>Equal contribution</span><span><sup>†</sup>Corresponding author</span></p>
+    <section id="benchmark">
+      <div class="container">
+        <p class="text-header">Benchmark Design</p>
 
-          <div class="resource-links" aria-label="Project resources">
-            <a class="resource-button primary" href="https://openreview.net/forum?id=5X5p1XGhZE">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v6h5M9 13h8M9 17h8"/></svg>
-              <span><small>Read the</small>Paper</span>
-            </a>
-            <a class="resource-button" href="https://github.com/Alexios-hub/Video-IFBench">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M14 5l-4 14"/></svg>
-              <span><small>Browse the</small>Code</span>
-            </a>
-            <a class="resource-button" href="https://huggingface.co/datasets/Alexislhb/Video-IFBench">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 10V7.8A4.8 4.8 0 0 1 11.8 3h.4A4.8 4.8 0 0 1 17 7.8V10M5 10h14v11H5z"/><path d="M9 15h.01M15 15h.01M10 18h4"/></svg>
-              <span><small>Explore the</small>Dataset</span>
-            </a>
-          </div>
+        <div class="stats-row" aria-label="Video-IFBench statistics">
+          <div class="stat-item"><span class="stat-value">1.5K</span><span class="stat-label">Samples</span></div>
+          <div class="stat-item"><span class="stat-value">706</span><span class="stat-label">Videos</span></div>
+          <div class="stat-item"><span class="stat-value">4</span><span class="stat-label">Templates</span></div>
+          <div class="stat-item"><span class="stat-value">32</span><span class="stat-label">Task Types</span></div>
+          <div class="stat-item"><span class="stat-value">39</span><span class="stat-label">Constraints</span></div>
+          <div class="stat-item"><span class="stat-value">20+</span><span class="stat-label">MLLMs</span></div>
         </div>
 
-        <div class="hero-visual" aria-label="A video prompt branching into multiple constrained tasks">
-          <div class="visual-glow"></div>
-          <div class="video-card">
-            <div class="video-topline"><span></span><span></span><span></span></div>
-            <div class="video-scene">
-              <span class="mountain one"></span>
-              <span class="mountain two"></span>
-              <span class="sun"></span>
-              <span class="play" aria-hidden="true"></span>
-            </div>
-            <div class="video-label"><span>VIDEO INPUT</span><b>00:42</b></div>
+        <p class="subsection-title">Dataset-level statistics</p>
+        <div class="figure-grid uneven">
+          <figure class="paper-figure figure-frame">
+            <img src="assets/paper/instruction-types.webp" alt="Distribution of Single, Multi, Selection, and Nested instructions" width="2534" height="1425">
+            <figcaption><strong>Figure 2a.</strong> Instruction types: Single 34.0%, Multi 27.3%, Selection 19.4%, and Nested 19.4%.</figcaption>
+          </figure>
+          <figure class="paper-figure figure-frame">
+            <img src="assets/paper/video-stats.webp" alt="Final-paper distribution of 706 videos across ten domains and ten duration bins" width="1115" height="340">
+            <figcaption><strong>Figure 2b.</strong> Video domains and durations. Videos cover ten broad domains and range from one to ten minutes.</figcaption>
+          </figure>
+        </div>
+
+        <p class="subsection-title">Instruction and constraint statistics</p>
+        <div class="figure-grid">
+          <figure class="paper-figure figure-frame">
+            <img src="assets/paper/constraints-distribution.webp" alt="Taxonomy and frequency distribution of 22 semantic and 17 format constraints" width="2534" height="1425">
+            <figcaption><strong>Figure 3a.</strong> The 39-category constraint taxonomy contains 22 semantic and 17 format constraints.</figcaption>
+          </figure>
+          <figure class="paper-figure figure-frame">
+            <img src="assets/paper/instruction-structures.webp" alt="Constraint, task, branch, and depth distributions for four instruction structures" width="1369" height="803">
+            <figcaption><strong>Figure 3b.</strong> Structure statistics for Single constraint count, Multi task count, Selection branch count, and Nested depth.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="evaluation">
+      <div class="container">
+        <p class="text-header">Evaluation Protocol</p>
+        <p class="body-text evaluation-intro">Each response is first checked for task-level coverage. Active checklist items are then evaluated with an LLM judge using video-grounded context or with deterministic verifiers for programmatically checkable constraints.</p>
+        <div class="metric-formulas">
+          <div class="metric-formula">
+            <h3>TCSR</h3>
+            <span class="formula">(1/N) &sum;<sub>i</sub> t<sub>i</sub> &middot; (1/n<sub>i</sub>) &sum;<sub>j</sub> c<sub>ij</sub></span>
+            <p>Task-gated average constraint satisfaction. It measures how many checklist items are satisfied after the active task passes.</p>
           </div>
-          <div class="branch-line branch-a"></div>
-          <div class="branch-line branch-b"></div>
-          <div class="branch-line branch-c"></div>
-          <div class="prompt-card prompt-a"><span>01</span><div><b>Identify</b><small>single task</small></div><i>✓</i></div>
-          <div class="prompt-card prompt-b"><span>02</span><div><b>Compare</b><small>multi-task</small></div><i>✓</i></div>
-          <div class="prompt-card prompt-c"><span>03</span><div><b>Format</b><small>nested constraints</small></div><i>✓</i></div>
-          <div class="constraint-chip chip-a">Temporal</div>
-          <div class="constraint-chip chip-b">Semantic</div>
-          <div class="constraint-chip chip-c">Format</div>
-        </div>
-      </section>
-
-      <section class="stats-band" aria-label="Dataset statistics">
-        <div class="stats-grid section-shell">
-          <div><strong>706</strong><span>videos</span></div>
-          <div><strong>1,465</strong><span>instructions</span></div>
-          <div><strong>4,129</strong><span>tasks</span></div>
-          <div><strong>7,794</strong><span>constraints</span></div>
-        </div>
-      </section>
-
-      <section id="overview" class="content-section section-shell reveal">
-        <div class="section-heading">
-          <p class="eyebrow">Overview</p>
-          <h2>Following the whole instruction—not just answering the question</h2>
-          <p>
-            Video-IFBench tests whether multimodal large language models can understand a video,
-            execute one or more requested tasks, and satisfy semantic and formatting constraints at
-            the same time.
-          </p>
-        </div>
-
-        <div class="contribution-grid">
-          <article class="feature-card">
-            <span class="feature-number">01</span>
-            <h3>Real video scenarios</h3>
-            <p>706 videos span 10 domains, grounding every instruction in visual and temporal evidence.</p>
-          </article>
-          <article class="feature-card">
-            <span class="feature-number">02</span>
-            <h3>Compositional instructions</h3>
-            <p>Instructions combine 32 task types with 39 semantic and format constraint categories.</p>
-          </article>
-          <article class="feature-card">
-            <span class="feature-number">03</span>
-            <h3>Constraint-level diagnosis</h3>
-            <p>A hybrid evaluator reports both fine-grained constraint success and strict instruction success.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="benchmark" class="content-section benchmark-section reveal">
-        <div class="section-shell">
-          <div class="section-heading compact">
-            <p class="eyebrow">Benchmark design</p>
-            <h2>Four instruction structures, increasing compositional pressure</h2>
-          </div>
-
-          <div class="instruction-grid">
-            <article class="instruction-card">
-              <div class="instruction-diagram single"><i></i><span></span></div>
-              <div class="instruction-meta"><span>01</span><small>Foundation</small></div>
-              <h3>Single</h3>
-              <p>One video-grounded task paired with one or more explicit response constraints.</p>
-            </article>
-            <article class="instruction-card">
-              <div class="instruction-diagram multi"><i></i><span></span><span></span></div>
-              <div class="instruction-meta"><span>02</span><small>Composition</small></div>
-              <h3>Multi</h3>
-              <p>Multiple independent tasks must all be completed in a single coherent response.</p>
-            </article>
-            <article class="instruction-card">
-              <div class="instruction-diagram selection"><i></i><span></span><em></em></div>
-              <div class="instruction-meta"><span>03</span><small>Conditional</small></div>
-              <h3>Selection</h3>
-              <p>The correct task or response path depends on evidence identified in the video.</p>
-            </article>
-            <article class="instruction-card">
-              <div class="instruction-diagram nested"><i></i><span></span><em></em><b></b></div>
-              <div class="instruction-meta"><span>04</span><small>Hierarchy</small></div>
-              <h3>Nested</h3>
-              <p>Tasks and constraints are embedded hierarchically to test structured execution.</p>
-            </article>
-          </div>
-
-          <div class="taxonomy-panel">
-            <div>
-              <p class="eyebrow">Coverage</p>
-              <h3>A broad taxonomy for precise failure analysis</h3>
-              <p>
-                The benchmark crosses video domains, task types, instruction structures, and
-                constraint categories instead of collapsing instruction following into a single prompt style.
-              </p>
-            </div>
-            <dl class="taxonomy-list">
-              <div><dt>10</dt><dd>video domains</dd></div>
-              <div><dt>32</dt><dd>task types</dd></div>
-              <div><dt>39</dt><dd>constraint categories</dd></div>
-              <div><dt>4</dt><dd>instruction structures</dd></div>
-            </dl>
+          <div class="metric-formula">
+            <h3>TISR</h3>
+            <span class="formula">(1/N) &sum;<sub>i</sub> t<sub>i</sub> &middot; &prod;<sub>j</sub> c<sub>ij</sub></span>
+            <p>Task-gated strict instruction satisfaction. Every active checklist item must pass simultaneously.</p>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="evaluation" class="content-section section-shell reveal">
-        <div class="section-heading">
-          <p class="eyebrow">Evaluation protocol</p>
-          <h2>A hybrid evaluator that checks execution and compliance</h2>
-          <p>
-            Each response passes through a task-execution gate before semantic, video-grounded,
-            and deterministic constraints are scored.
-          </p>
+    <section id="results">
+      <div class="container">
+        <p class="text-header">Main Results</p>
+        <div class="result-summary">
+          <div class="finding"><strong>Strongest overall</strong>Gemini-3-Pro reaches 76.5 TCSR and 54.5 TISR.</div>
+          <div class="finding"><strong>Best open-source model</strong>Qwen3.5-397B-A17B-Think reaches 69.6 TCSR and 46.1 TISR.</div>
+          <div class="finding"><strong>Strict following remains hard</strong>TISR is consistently lower than TCSR across every evaluated model.</div>
         </div>
 
-        <div class="pipeline" aria-label="Evaluation pipeline">
-          <article class="pipeline-node input-node">
-            <span>Input</span><h3>Model response</h3><p>Generated from the video and instruction.</p>
-          </article>
-          <span class="pipeline-arrow" aria-hidden="true">→</span>
-          <article class="pipeline-node gate-node">
-            <span>Stage 1</span><h3>Task execution</h3><p>Verify that every requested task was attempted.</p>
-          </article>
-          <span class="pipeline-arrow split-arrow" aria-hidden="true">→</span>
-          <div class="pipeline-branches">
-            <article class="pipeline-node">
-              <span>Stage 2</span><h3>Semantic checks</h3><p>LLM-based judging for meaning and video grounding.</p>
-            </article>
-            <article class="pipeline-node">
-              <span>Stage 3</span><h3>Rule checks</h3><p>Deterministic validation for objective constraints.</p>
-            </article>
+        <div class="table-responsive" role="region" aria-label="Table 1 main results" tabindex="0">
+            <table class="evaluation-table">
+              <caption>Table 1. Main results on Video-IFBench. TCSR and TISR are reported for each instruction type and the overall benchmark. Best results within each model group are in bold.</caption>
+              <thead>
+                <tr>
+                  <th scope="col" rowspan="2">Model</th>
+                  <th scope="colgroup" colspan="2">Single</th>
+                  <th scope="colgroup" colspan="2">Multi</th>
+                  <th scope="colgroup" colspan="2">Selection</th>
+                  <th scope="colgroup" colspan="2">Nested</th>
+                  <th scope="colgroup" colspan="2">Overall</th>
+                </tr>
+                <tr>
+                  <th scope="col">TCSR</th>
+                  <th scope="col">TISR</th>
+                  <th scope="col">TCSR</th>
+                  <th scope="col">TISR</th>
+                  <th scope="col">TCSR</th>
+                  <th scope="col">TISR</th>
+                  <th scope="col">TCSR</th>
+                  <th scope="col">TISR</th>
+                  <th scope="col">TCSR</th>
+                  <th scope="col">TISR</th>
+                </tr>
+              </thead>
+              <tbody class="model-group proprietary-models">
+                <tr class="group-row"><th scope="rowgroup" colspan="11">Proprietary Models</th></tr>
+                <tr>
+                  <th scope="row">Gemini-3-Pro</th>
+                  <td><strong class="best-value">79.6</strong></td>
+                  <td><strong class="best-value">52.3</strong></td>
+                  <td><strong class="best-value">88.6</strong></td>
+                  <td><strong class="best-value">58.8</strong></td>
+                  <td><strong class="best-value">68.5</strong></td>
+                  <td><strong class="best-value">59.2</strong></td>
+                  <td><strong class="best-value">53.7</strong></td>
+                  <td><strong class="best-value">46</strong></td>
+                  <td><strong class="best-value">76.5</strong></td>
+                  <td><strong class="best-value">54.5</strong></td>
+                </tr>
+                <tr>
+                  <th scope="row">Gemini-3-Flash</th>
+                  <td>76.7</td>
+                  <td>49.2</td>
+                  <td>87.6</td>
+                  <td>56.4</td>
+                  <td>63.9</td>
+                  <td>54.8</td>
+                  <td>39.9</td>
+                  <td>30.7</td>
+                  <td>72.2</td>
+                  <td>49.5</td>
+                </tr>
+                <tr>
+                  <th scope="row">Doubao-Seed-2.0-Pro-260215</th>
+                  <td>76.7</td>
+                  <td>44.6</td>
+                  <td>87.1</td>
+                  <td>51.1</td>
+                  <td>46.5</td>
+                  <td>38.2</td>
+                  <td>17.8</td>
+                  <td>14.4</td>
+                  <td>65.7</td>
+                  <td>40.8</td>
+                </tr>
+                <tr>
+                  <th scope="row">GPT-5.4</th>
+                  <td>72.8</td>
+                  <td>34.7</td>
+                  <td>82.4</td>
+                  <td>43.2</td>
+                  <td>21.1</td>
+                  <td>16.9</td>
+                  <td>12.1</td>
+                  <td>7.6</td>
+                  <td>57.4</td>
+                  <td>30.0</td>
+                </tr>
+              </tbody>
+              <tbody class="model-group open-source-models-instruct">
+                <tr class="group-row"><th scope="rowgroup" colspan="11">Open-source Models (Instruct)</th></tr>
+                <tr>
+                  <th scope="row">Qwen2.5-Omni-3B</th>
+                  <td>35.2</td>
+                  <td>11.6</td>
+                  <td>34.0</td>
+                  <td>8.6</td>
+                  <td>7.7</td>
+                  <td>5.4</td>
+                  <td>6.5</td>
+                  <td>4.5</td>
+                  <td>25.8</td>
+                  <td>8.6</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen2.5-Omni-7B</th>
+                  <td>46.3</td>
+                  <td>16.6</td>
+                  <td>48.6</td>
+                  <td>14.9</td>
+                  <td>15.6</td>
+                  <td>11.5</td>
+                  <td>8.9</td>
+                  <td>5.5</td>
+                  <td>36.0</td>
+                  <td>13.5</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen3-Omni-30B-A3B-Instruct</th>
+                  <td>57.9</td>
+                  <td>21.4</td>
+                  <td>62.9</td>
+                  <td>22.9</td>
+                  <td>17.2</td>
+                  <td>14.3</td>
+                  <td>6.1</td>
+                  <td>4.1</td>
+                  <td>44.3</td>
+                  <td>18.0</td>
+                </tr>
+                <tr>
+                  <th scope="row">Gemma-4-E4B-it</th>
+                  <td>56.8</td>
+                  <td>22.1</td>
+                  <td>67.5</td>
+                  <td>29.9</td>
+                  <td>11.9</td>
+                  <td>8.2</td>
+                  <td>6.0</td>
+                  <td>3.8</td>
+                  <td>45.1</td>
+                  <td>19.5</td>
+                </tr>
+                <tr>
+                  <th scope="row">Gemma-4-26B-A4B-it</th>
+                  <td>71.6</td>
+                  <td>35.7</td>
+                  <td>79.2</td>
+                  <td>41.1</td>
+                  <td>22.7</td>
+                  <td>19.4</td>
+                  <td>7.1</td>
+                  <td>4.5</td>
+                  <td>55.6</td>
+                  <td>29.7</td>
+                </tr>
+                <tr>
+                  <th scope="row">Gemma-4-31B-it</th>
+                  <td><strong class="best-value">75.8</strong></td>
+                  <td><strong class="best-value">43.0</strong></td>
+                  <td>82.1</td>
+                  <td><strong class="best-value">44.4</strong></td>
+                  <td><strong class="best-value">29.9</strong></td>
+                  <td><strong class="best-value">25.4</strong></td>
+                  <td>13.8</td>
+                  <td><strong class="best-value">10.0</strong></td>
+                  <td><strong class="best-value">60.4</strong></td>
+                  <td><strong class="best-value">35.4</strong></td>
+                </tr>
+                <tr>
+                  <th scope="row">InternVL3.5-8B-Instruct</th>
+                  <td>53.4</td>
+                  <td>19.1</td>
+                  <td>63.6</td>
+                  <td>21.8</td>
+                  <td>16.3</td>
+                  <td>10.1</td>
+                  <td>7.6</td>
+                  <td>3.5</td>
+                  <td>43.1</td>
+                  <td>16.0</td>
+                </tr>
+                <tr>
+                  <th scope="row">InternVL3.5-14B-Instruct</th>
+                  <td>56.2</td>
+                  <td>19.1</td>
+                  <td>66.3</td>
+                  <td>22.6</td>
+                  <td>18.6</td>
+                  <td>12.5</td>
+                  <td>6.2</td>
+                  <td>3.5</td>
+                  <td>45.1</td>
+                  <td>16.6</td>
+                </tr>
+                <tr>
+                  <th scope="row">InternVL3.5-30B-A3B-Instruct</th>
+                  <td>57.0</td>
+                  <td>19.2</td>
+                  <td>65.9</td>
+                  <td>24.8</td>
+                  <td>21.2</td>
+                  <td>13.8</td>
+                  <td><strong class="best-value">16.2</strong></td>
+                  <td>9.6</td>
+                  <td>47.4</td>
+                  <td>18.5</td>
+                </tr>
+                <tr>
+                  <th scope="row">InternVL3.5-38B-Instruct</th>
+                  <td>61.0</td>
+                  <td>24.5</td>
+                  <td>71.8</td>
+                  <td>27.1</td>
+                  <td>18.5</td>
+                  <td>12.7</td>
+                  <td>14.6</td>
+                  <td>8.4</td>
+                  <td>49.8</td>
+                  <td>20.8</td>
+                </tr>
+                <tr>
+                  <th scope="row">InternVL3.5-241B-A28B-Instruct</th>
+                  <td>64.5</td>
+                  <td>24.6</td>
+                  <td>75.3</td>
+                  <td>32.2</td>
+                  <td>16.0</td>
+                  <td>12.3</td>
+                  <td>13.6</td>
+                  <td>10.4</td>
+                  <td>51.7</td>
+                  <td>22.7</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen3-VL-4B-Instruct</th>
+                  <td>55.6</td>
+                  <td>19.9</td>
+                  <td>65.6</td>
+                  <td>20.9</td>
+                  <td>15.1</td>
+                  <td>11.4</td>
+                  <td>8.7</td>
+                  <td>5.1</td>
+                  <td>44.3</td>
+                  <td>16.4</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen3-VL-8B-Instruct</th>
+                  <td>60.1</td>
+                  <td>23.5</td>
+                  <td>68.9</td>
+                  <td>24.7</td>
+                  <td>17.8</td>
+                  <td>13.0</td>
+                  <td>13.5</td>
+                  <td>8.5</td>
+                  <td>48.0</td>
+                  <td>19.6</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen3-VL-30B-A3B-Instruct</th>
+                  <td>56.8</td>
+                  <td>19.9</td>
+                  <td>70.4</td>
+                  <td>25.4</td>
+                  <td>17.0</td>
+                  <td>12.3</td>
+                  <td>13.6</td>
+                  <td>9.5</td>
+                  <td>47.2</td>
+                  <td>18.6</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen3-VL-235B-A22B-Instruct</th>
+                  <td>67.5</td>
+                  <td>31.9</td>
+                  <td>78.0</td>
+                  <td>35.1</td>
+                  <td>19.5</td>
+                  <td>14.5</td>
+                  <td>8.6</td>
+                  <td>6.0</td>
+                  <td>53.1</td>
+                  <td>25.8</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen3.5-4B-Instruct</th>
+                  <td>54.6</td>
+                  <td>22.0</td>
+                  <td>65.5</td>
+                  <td>23.3</td>
+                  <td>15.2</td>
+                  <td>8.8</td>
+                  <td>7.9</td>
+                  <td>4.0</td>
+                  <td>43.9</td>
+                  <td>17.3</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen3.5-9B-Instruct</th>
+                  <td>57.8</td>
+                  <td>22.6</td>
+                  <td>70.0</td>
+                  <td>27.3</td>
+                  <td>16.2</td>
+                  <td>12.4</td>
+                  <td>8.1</td>
+                  <td>5.0</td>
+                  <td>46.6</td>
+                  <td>19.6</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen3.5-27B-Instruct</th>
+                  <td>66.7</td>
+                  <td>29.1</td>
+                  <td>77.8</td>
+                  <td>33.8</td>
+                  <td>23.0</td>
+                  <td>18.0</td>
+                  <td>11.7</td>
+                  <td>6.9</td>
+                  <td>54.0</td>
+                  <td>25.2</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen3.5-35B-A3B-Instruct</th>
+                  <td>56.7</td>
+                  <td>25.7</td>
+                  <td>75.2</td>
+                  <td>33.4</td>
+                  <td>17.5</td>
+                  <td>12.4</td>
+                  <td>7.5</td>
+                  <td>5.0</td>
+                  <td>48.0</td>
+                  <td>22.6</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen3.5-122B-A10B-Instruct</th>
+                  <td>62.7</td>
+                  <td>29.1</td>
+                  <td>79.8</td>
+                  <td>36.8</td>
+                  <td>20.3</td>
+                  <td>14.5</td>
+                  <td>9.5</td>
+                  <td>5.5</td>
+                  <td>52.5</td>
+                  <td>25.3</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen3.5-397B-A17B-Instruct</th>
+                  <td>70.1</td>
+                  <td>36.5</td>
+                  <td><strong class="best-value">83.2</strong></td>
+                  <td>40.8</td>
+                  <td>24.3</td>
+                  <td>18.9</td>
+                  <td>12.2</td>
+                  <td>7.9</td>
+                  <td>57.3</td>
+                  <td>30.4</td>
+                </tr>
+              </tbody>
+              <tbody class="model-group open-source-models-thinking">
+                <tr class="group-row"><th scope="rowgroup" colspan="11">Open-source Models (Thinking)</th></tr>
+                <tr>
+                  <th scope="row">Qwen3-Omni-30B-A3B-Think</th>
+                  <td>66.6</td>
+                  <td>30.0</td>
+                  <td>75.1</td>
+                  <td>36.8</td>
+                  <td>24.8</td>
+                  <td>18.5</td>
+                  <td>10.1</td>
+                  <td>5.5</td>
+                  <td>53.1</td>
+                  <td>26.2</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen3-VL-30B-A3B-Think</th>
+                  <td>60.7</td>
+                  <td>23.9</td>
+                  <td>68.2</td>
+                  <td>31.3</td>
+                  <td>22.2</td>
+                  <td>17.1</td>
+                  <td>8.5</td>
+                  <td>5.5</td>
+                  <td>47.9</td>
+                  <td>22.0</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen3-VL-235B-A22B-Think</th>
+                  <td>74.7</td>
+                  <td>37.7</td>
+                  <td>84.4</td>
+                  <td>45.0</td>
+                  <td>31.4</td>
+                  <td>24.9</td>
+                  <td>14.1</td>
+                  <td>10.3</td>
+                  <td>60.9</td>
+                  <td>33.5</td>
+                </tr>
+                <tr>
+                  <th scope="row">InternVL3.5-8B-Think</th>
+                  <td>53.7</td>
+                  <td>18.0</td>
+                  <td>63.8</td>
+                  <td>21.6</td>
+                  <td>18.4</td>
+                  <td>13.7</td>
+                  <td>9.6</td>
+                  <td>6.5</td>
+                  <td>43.8</td>
+                  <td>16.5</td>
+                </tr>
+                <tr>
+                  <th scope="row">InternVL3.5-14B-Think</th>
+                  <td>55.9</td>
+                  <td>18.7</td>
+                  <td>67.1</td>
+                  <td>24.7</td>
+                  <td>19.4</td>
+                  <td>14.7</td>
+                  <td>12.3</td>
+                  <td>7.5</td>
+                  <td>46.4</td>
+                  <td>18.1</td>
+                </tr>
+                <tr>
+                  <th scope="row">InternVL3.5-30B-A3B-Think</th>
+                  <td>54.4</td>
+                  <td>18.0</td>
+                  <td>67.8</td>
+                  <td>26.1</td>
+                  <td>25.6</td>
+                  <td>17.1</td>
+                  <td>11.9</td>
+                  <td>7.6</td>
+                  <td>47.0</td>
+                  <td>18.7</td>
+                </tr>
+                <tr>
+                  <th scope="row">InternVL3.5-38B-Think</th>
+                  <td>58.8</td>
+                  <td>21.4</td>
+                  <td>71.2</td>
+                  <td>24.8</td>
+                  <td>18.3</td>
+                  <td>11.6</td>
+                  <td>16.4</td>
+                  <td>10.5</td>
+                  <td>49.1</td>
+                  <td>19.1</td>
+                </tr>
+                <tr>
+                  <th scope="row">InternVL3.5-241B-A28B-Think</th>
+                  <td>64.9</td>
+                  <td>22.7</td>
+                  <td>76.4</td>
+                  <td>33.8</td>
+                  <td>20.5</td>
+                  <td>15.8</td>
+                  <td>11.8</td>
+                  <td>6.5</td>
+                  <td>52.5</td>
+                  <td>22.3</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen3.5-9B-Think</th>
+                  <td>67.1</td>
+                  <td>35.9</td>
+                  <td>77.6</td>
+                  <td>39.8</td>
+                  <td>39.1</td>
+                  <td>32.0</td>
+                  <td>16.9</td>
+                  <td>11.9</td>
+                  <td>56.0</td>
+                  <td>32.2</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen3.5-27B-Think</th>
+                  <td>74.0</td>
+                  <td>40.1</td>
+                  <td>82.2</td>
+                  <td>46.3</td>
+                  <td>42.1</td>
+                  <td>34.0</td>
+                  <td>24.7</td>
+                  <td>20.0</td>
+                  <td>62.5</td>
+                  <td>37.5</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen3.5-35B-A3B-Think</th>
+                  <td>72.4</td>
+                  <td>37.9</td>
+                  <td>85.2</td>
+                  <td>49.1</td>
+                  <td>38.2</td>
+                  <td>31.5</td>
+                  <td>23.3</td>
+                  <td>19.8</td>
+                  <td>62.8</td>
+                  <td>37.2</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen3.5-122B-A10B-Think</th>
+                  <td>77.0</td>
+                  <td>45.6</td>
+                  <td>84.2</td>
+                  <td>50.1</td>
+                  <td>46.5</td>
+                  <td>39.4</td>
+                  <td>23.9</td>
+                  <td>19.7</td>
+                  <td>65.2</td>
+                  <td>41.7</td>
+                </tr>
+                <tr>
+                  <th scope="row">Qwen3.5-397B-A17B-Think</th>
+                  <td><strong class="best-value">79.4</strong></td>
+                  <td><strong class="best-value">48.5</strong></td>
+                  <td><strong class="best-value">86.0</strong></td>
+                  <td><strong class="best-value">52.8</strong></td>
+                  <td><strong class="best-value">52.1</strong></td>
+                  <td><strong class="best-value">44.9</strong></td>
+                  <td><strong class="best-value">33.0</strong></td>
+                  <td><strong class="best-value">28.2</strong></td>
+                  <td><strong class="best-value">69.6</strong></td>
+                  <td><strong class="best-value">46.1</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+    </section>
+
+    <section id="analysis">
+      <div class="container">
+        <p class="text-header">Further Analysis</p>
+
+        <figure class="paper-figure figure-frame">
+          <img src="assets/paper/hardest-constraints.webp" alt="Performance ranges of proprietary, open-source instruct, and open-source thinking models on the 15 hardest constraints" width="3021" height="1167">
+          <figcaption><strong>Figure 4.</strong> Performance on the 15 most challenging constraints. Temporal grounding and condition-dependent content selection are consistently difficult; proprietary models generally lead, while thinking variants raise the upper bound for many open-source families.</figcaption>
+        </figure>
+
+        <div class="figure-grid">
+          <figure class="paper-figure figure-frame">
+            <img src="assets/paper/family-scaling.webp" alt="TCSR and TISR scaling trends across model families and sizes" width="1188" height="770">
+            <figcaption><strong>Figure 5a.</strong> Scaling across model families. Larger models generally improve instruction following, although gains vary by family.</figcaption>
+          </figure>
+          <figure class="paper-figure figure-frame">
+            <img src="assets/paper/semantic-vs-format.webp" alt="Semantic versus format constraint satisfaction for representative models" width="1349" height="892">
+            <figcaption><strong>Figure 5b.</strong> Models perform substantially worse on semantic constraints than on format constraints.</figcaption>
+          </figure>
+        </div>
+
+        <p class="subsection-title">Task and constraint scaling</p>
+        <div class="figure-grid">
+          <div class="mini-table-wrap">
+            <table class="compact-table">
+              <caption><strong>Table 2a.</strong> Task pass rate on Single and Multi instructions.</caption>
+              <thead><tr><th>Model</th><th>1–4</th><th>5–8</th><th>9+</th></tr></thead>
+              <tbody>
+                <tr><th>Gemini-3-Pro</th><td>95.6</td><td>94.9</td><td>96.3</td></tr>
+                <tr><th>Gemini-3-Flash</th><td>93.9</td><td>95.7</td><td>94.3</td></tr>
+                <tr><th>Qwen3.5-397B-A17B-Think</th><td>95.5</td><td>92.6</td><td>95.8</td></tr>
+                <tr><th>Gemma-4-31B-it</th><td>90.5</td><td>92.5</td><td>91.8</td></tr>
+                <tr><th>Qwen3-Omni-30B-A3B-Instruct</th><td>84.5</td><td>81.0</td><td>76.9</td></tr>
+                <tr><th>Gemma-4-E4B-it</th><td>81.0</td><td>79.1</td><td>84.1</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="mini-table-wrap">
+            <table class="compact-table">
+              <caption><strong>Table 2b.</strong> TISR on Single instructions as constraints increase.</caption>
+              <thead><tr><th>Model</th><th>1–4</th><th>5–8</th><th>9+</th></tr></thead>
+              <tbody>
+                <tr><th>Gemini-3-Pro</th><td>62.7</td><td>51.8</td><td>46.9</td></tr>
+                <tr><th>Gemini-3-Flash</th><td>59.3</td><td>47.5</td><td>46.9</td></tr>
+                <tr><th>Qwen3.5-397B-A17B-Think</th><td>58.2</td><td>43.9</td><td>42.5</td></tr>
+                <tr><th>Gemma-4-31B-it</th><td>53.7</td><td>39.6</td><td>29.2</td></tr>
+                <tr><th>Qwen3-Omni-30B-A3B-Instruct</th><td>40.1</td><td>11.5</td><td>3.5</td></tr>
+                <tr><th>Gemma-4-E4B-it</th><td>38.4</td><td>12.9</td><td>7.1</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
+        <p class="body-text analysis-copy">Task pass rates are relatively stable for capable models, while strict instruction satisfaction drops sharply as constraints accumulate. For example, Gemini-3-Pro falls from 62.7 TISR at 1–4 constraints to 46.9 at 9+, and Qwen3-Omni-30B-A3B-Instruct falls from 40.1 to 3.5.</p>
 
-        <div class="metric-grid">
-          <article class="metric-card">
-            <div class="metric-symbol">TCSR</div>
-            <div><h3>Task Constraint Success Rate</h3><p>Fine-grained success across task-specific constraints.</p></div>
-          </article>
-          <article class="metric-card">
-            <div class="metric-symbol">TISR</div>
-            <div><h3>Task Instruction Success Rate</h3><p>Strict success only when the full instruction is satisfied.</p></div>
-          </article>
+        <div class="figure-grid">
+          <figure class="paper-figure figure-frame">
+            <img src="assets/paper/nested-depth.webp" alt="Task pass rate decreases as Nested instruction depth increases" width="1258" height="637">
+            <figcaption><strong>Figure 6.</strong> Depth sensitivity on Nested instructions. Gemini-3-Pro declines from 64.6% at depth 2–4 to 55.6% at depth 8–14; the strongest open-source model declines from 40.5% to 22.2%.</figcaption>
+          </figure>
+          <figure class="paper-figure figure-frame">
+            <img src="assets/paper/thinking-mode.webp" alt="Effect of thinking mode on semantic and format constraints" width="2320" height="815">
+            <figcaption><strong>Figure 7.</strong> Thinking-mode gains are model-dependent and tend to be larger on semantic than format constraints.</figcaption>
+          </figure>
         </div>
-      </section>
 
-      <section id="toolkit" class="content-section toolkit-section reveal">
-        <div class="section-shell">
-          <div class="section-heading compact">
-            <p class="eyebrow">Open evaluation toolkit</p>
-            <h2>Run Video-IFBench with an OpenAI-compatible endpoint</h2>
-            <p>The public toolkit supports resumable inference, optional ASR, hybrid scoring, and metric summaries.</p>
+        <p class="subsection-title">Selection branch count and position</p>
+        <div class="figure-grid">
+          <div class="mini-table-wrap">
+            <table class="compact-table">
+              <caption><strong>Table 3a.</strong> Task pass rate by number of branches.</caption>
+              <thead><tr><th>Model</th><th>2</th><th>3</th><th>4</th></tr></thead>
+              <tbody>
+                <tr><th>Gemini-3-Flash</th><td>66.7</td><td>58.0</td><td>56.5</td></tr>
+                <tr><th>Qwen3.5-397B-A17B-Think</th><td>68.1</td><td>59.4</td><td>59.4</td></tr>
+                <tr><th>Qwen3.5-397B-A17B-Instruct</th><td>58.0</td><td>50.7</td><td>39.1</td></tr>
+                <tr><th>Qwen3.5-9B-Instruct</th><td>37.7</td><td>24.6</td><td>27.5</td></tr>
+                <tr><th>Gemma-4-31B-it</th><td>50.7</td><td>46.4</td><td>36.2</td></tr>
+                <tr><th>Gemma-4-E4B-it</th><td>43.5</td><td>27.5</td><td>19.1</td></tr>
+                <tr><th>Qwen3-Omni-30B-A3B-Instruct</th><td>43.9</td><td>30.4</td><td>17.4</td></tr>
+              </tbody>
+            </table>
           </div>
-
-          <div class="code-tabs" data-tabs>
-            <div class="tab-list" role="tablist" aria-label="Quick start commands">
-              <button role="tab" aria-selected="true" aria-controls="panel-install" id="tab-install">Install</button>
-              <button role="tab" aria-selected="false" aria-controls="panel-data" id="tab-data" tabindex="-1">Data</button>
-              <button role="tab" aria-selected="false" aria-controls="panel-run" id="tab-run" tabindex="-1">Evaluate</button>
-              <button role="tab" aria-selected="false" aria-controls="panel-score" id="tab-score" tabindex="-1">Score</button>
-            </div>
-            <div class="code-panel" role="tabpanel" id="panel-install" aria-labelledby="tab-install">
-              <button class="copy-button" type="button" data-copy aria-label="Copy install command">Copy</button>
-              <pre><code>git clone https://github.com/Alexios-hub/Video-IFBench.git
-cd Video-IFBench
-pip install -e .</code></pre>
-            </div>
-            <div class="code-panel" role="tabpanel" id="panel-data" aria-labelledby="tab-data" hidden>
-              <button class="copy-button" type="button" data-copy aria-label="Copy dataset command">Copy</button>
-              <pre><code>huggingface-cli download Alexislhb/Video-IFBench \
-  --repo-type dataset \
-  --local-dir data/Video-IFBench</code></pre>
-            </div>
-            <div class="code-panel" role="tabpanel" id="panel-run" aria-labelledby="tab-run" hidden>
-              <button class="copy-button" type="button" data-copy aria-label="Copy evaluation command">Copy</button>
-<pre><code>video-ifbench-run \
-  --dataset-root data/Video-IFBench \
-  --output-dir outputs/model_name \
-  --api-base http://localhost:8000/v1 \
-  --model model_name \
-  --media-mode video-url \
-  --concurrency 32 \
-  --resume</code></pre>
-            </div>
-            <div class="code-panel" role="tabpanel" id="panel-score" aria-labelledby="tab-score" hidden>
-              <button class="copy-button" type="button" data-copy aria-label="Copy scoring commands">Copy</button>
-              <pre><code>video-ifbench-score \
-  --response-dir outputs/model_name \
-  --output-json outputs/model_name/_instruction_following_report.json \
-  --judge-api-base http://localhost:8001/v1 \
-  --judge-model judge_model_name \
-  --concurrency 16
-
-video-ifbench-summarize \
-  --report outputs/model_name/_instruction_following_report.json \
-  --model-name "model_name" \
-  --format latex</code></pre>
-            </div>
+          <div class="mini-table-wrap">
+            <table class="compact-table">
+              <caption><strong>Table 3b.</strong> Task pass rate by correct-branch position.</caption>
+              <thead><tr><th>Model</th><th>1</th><th>2</th><th>3</th></tr></thead>
+              <tbody>
+                <tr><th>Gemini-3-Flash</th><td>66.7</td><td>66.7</td><td>54.9</td></tr>
+                <tr><th>Qwen3.5-397B-A17B-Think</th><td>76.5</td><td>58.8</td><td>52.9</td></tr>
+                <tr><th>Qwen3.5-397B-A17B-Instruct</th><td>70.6</td><td>35.3</td><td>29.4</td></tr>
+                <tr><th>Qwen3.5-9B-Instruct</th><td>45.1</td><td>21.6</td><td>15.7</td></tr>
+                <tr><th>Gemma-4-31B-it</th><td>33.3</td><td>43.1</td><td>39.2</td></tr>
+                <tr><th>Gemma-4-E4B-it</th><td>33.3</td><td>8.3</td><td>5.9</td></tr>
+                <tr><th>Qwen3-Omni-30B-A3B-Instruct</th><td>23.5</td><td>12.0</td><td>18.0</td></tr>
+              </tbody>
+            </table>
           </div>
-          <p class="toolkit-note">
-            See the <a href="https://github.com/Alexios-hub/Video-IFBench#getting-started">repository README</a>
-            for ASR, retry, frame-fallback, and thinking-mode options.
-          </p>
         </div>
-      </section>
+        <p class="body-text analysis-copy">More candidate branches generally reduce task pass rate. Most models also show a preference for earlier branches, revealing position bias in conditional instruction following.</p>
+      </div>
+    </section>
 
-      <section id="citation" class="content-section section-shell reveal">
-        <div class="section-heading compact">
-          <p class="eyebrow">Citation</p>
-          <h2>Use Video-IFBench in your research</h2>
+    <section id="examples">
+      <div class="container">
+        <p class="text-header">Qualitative Examples</p>
+        <p class="body-text text-center">Examples from the paper show representative failure modes across the four instruction structures.</p>
+        <div class="sample-buttons" role="tablist" aria-label="Instruction example type">
+          <button class="button active" type="button" role="tab" aria-selected="true" data-sample-target="single">Single</button>
+          <button class="button" type="button" role="tab" aria-selected="false" data-sample-target="multi">Multi</button>
+          <button class="button" type="button" role="tab" aria-selected="false" data-sample-target="selection">Selection</button>
+          <button class="button" type="button" role="tab" aria-selected="false" data-sample-target="nested">Nested</button>
         </div>
-        <div class="citation-card">
-          <button class="copy-button" type="button" data-copy aria-label="Copy BibTeX">Copy BibTeX</button>
-          <pre><code>@misc{liu2026videoifbench,
-  title  = {Video-IFBench: Evaluating Instruction Following of
-            Multimodal LLMs in Video Understanding Scenarios},
-  author = {Hongbo Liu and Peixian Chen and Sihan Liu and Peiyuan Zhang
-            and Kai Zou and Dian Zheng and Xiaoxing Hu and Yuhao Dong
-            and Mengdan Zhang and Yunhang Shen and Haoyu Cao and Wei Liu
-            and Weibo Gu and Xing Sun and Shengjie Zhao},
+
+        <div class="sample-viewer active" data-sample-panel="single">
+          <a href="assets/paper/case-single.webp" target="_blank"><img src="assets/paper/case-single.webp" alt="Single instruction example with six constraints and model responses" width="1900" height="2534"></a>
+          <p>A Single instruction with six constraints. Two evaluated models fail a forbidden-color-word requirement.</p>
+        </div>
+        <div class="sample-viewer" data-sample-panel="multi">
+          <a href="assets/paper/case-multi.webp" target="_blank"><img src="assets/paper/case-multi.webp" alt="Multi instruction example with twelve constraints and model response" width="1900" height="2534"></a>
+          <p>A Multi instruction with twelve constraints. Gemini-3-Pro mentions an event shorter than the requested duration threshold.</p>
+        </div>
+        <div class="sample-viewer" data-sample-panel="selection">
+          <a href="assets/paper/case-selection.webp" target="_blank"><img src="assets/paper/case-selection.webp" alt="Selection instruction example with seven branches and model responses" width="1900" height="2534"></a>
+          <p>A Selection instruction with seven branches. Qwen3.5-397B-A17B-Think follows the wrong branch.</p>
+        </div>
+        <div class="sample-viewer" data-sample-panel="nested">
+          <a href="assets/paper/case-nested.webp" target="_blank"><img src="assets/paper/case-nested.webp" alt="Nested instruction example with maximum depth fifteen and model responses" width="1900" height="2534"></a>
+          <p>A Nested instruction with maximum depth 15. Gemini-3-Pro follows the wrong path through the condition tree.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="citation">
+      <div class="container">
+        <p class="text-header">BibTeX</p>
+        <div class="citation-block">
+          <pre class="citation-content" id="citation-text">@misc{liu2026videoifbench,
+  title  = {Video-IFBench: Evaluating Instruction Following of Multimodal LLMs in Video Understanding Scenarios},
+  author = {Hongbo Liu and Peixian Chen and Sihan Liu and Peiyuan Zhang and Kai Zou and Dian Zheng and Xiaoxing Hu and Yuhao Dong and Mengdan Zhang and Yunhang Shen and Haoyu Cao and Wei Liu and Weibo Gu and Xing Sun and Shengjie Zhao},
   year   = {2026},
   url    = {https://openreview.net/forum?id=5X5p1XGhZE}
-}</code></pre>
+}</pre>
+          <button type="button" class="btn btn-primary copy-button" data-copy-citation><i class="bi bi-clipboard"></i> Copy BibTeX</button>
+          <span class="copy-status" id="copy-status" aria-live="polite"></span>
         </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="section-shell footer-inner">
-        <div>
-          <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>Video-IFBench</a>
-          <p>Benchmarking instruction following in video understanding.</p>
-        </div>
-        <div class="footer-links">
-          <a href="https://openreview.net/forum?id=5X5p1XGhZE">Paper</a>
-          <a href="https://github.com/Alexios-hub/Video-IFBench">Code</a>
-          <a href="https://huggingface.co/datasets/Alexislhb/Video-IFBench">Dataset</a>
-        </div>
-        <p class="license-note">Dataset licensed under CC BY-NC 4.0.</p>
       </div>
-    </footer>
-  </body>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">Video-IFBench &middot; <a href="https://github.com/Alexios-hub/Video-IFBench">Code</a> &middot; <a href="https://huggingface.co/datasets/Alexislhb/Video-IFBench">Dataset</a> &middot; <span id="year">2026</span></div>
+  </footer>
+
+  <script src="assets/site.js"></script>
+</body>
 </html>
