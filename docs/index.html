@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Video-IFBench evaluates whether multimodal large language models can follow compositional instructions in video-understanding scenarios."
+    />
+    <meta name="theme-color" content="#081c35" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Video-IFBench" />
+    <meta
+      property="og:description"
+      content="Benchmarking instruction following in video understanding: 706 videos, 1,465 instructions, and 7,794 constraints."
+    />
+    <meta property="og:url" content="https://alexios-hub.github.io/Video-IFBench/" />
+    <meta
+      property="og:image"
+      content="https://alexios-hub.github.io/Video-IFBench/assets/og.jpg"
+    />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1731" />
+    <meta property="og:image:height" content="909" />
+    <meta property="og:image:alt" content="Video-IFBench project preview" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <title>Video-IFBench — Instruction Following for Video Understanding</title>
+    <script>document.documentElement.classList.add("js");</script>
+    <link rel="stylesheet" href="assets/site.css" />
+    <script defer src="assets/site.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header" data-header>
+      <div class="nav-shell">
+        <a class="brand" href="#top" aria-label="Video-IFBench home">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span>Video-IFBench</span>
+        </a>
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          data-menu-toggle
+        >
+          <span class="sr-only">Toggle navigation</span>
+          <span></span><span></span><span></span>
+        </button>
+        <nav id="site-nav" class="site-nav" aria-label="Primary navigation" data-menu>
+          <a href="#overview">Overview</a>
+          <a href="#benchmark">Benchmark</a>
+          <a href="#evaluation">Evaluation</a>
+          <a href="#toolkit">Toolkit</a>
+          <a href="#citation">Citation</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section id="top" class="hero section-shell">
+        <div class="hero-copy">
+          <p class="eyebrow">A benchmark for multimodal instruction following</p>
+          <h1>Video-<span>IF</span>Bench</h1>
+          <p class="hero-subtitle">
+            Evaluating Instruction Following of Multimodal LLMs<br class="desktop-break" />
+            in Video Understanding Scenarios
+          </p>
+
+          <div class="authors" aria-label="Authors">
+            <a href="https://openreview.net/profile?id=~Hongbo_Liu7">Hongbo Liu<sup>1,*</sup></a>
+            <a href="https://openreview.net/profile?id=~Peixian_Chen2">Peixian Chen<sup>2,*</sup></a>
+            <a href="https://openreview.net/profile?id=~Sihan_liu6">Sihan Liu<sup>2</sup></a>
+            <a href="https://openreview.net/profile?id=~Peiyuan_Zhang3">Peiyuan Zhang<sup>3</sup></a>
+            <a href="https://openreview.net/profile?id=~Kai_Zou4">Kai Zou<sup>4</sup></a>
+            <a href="https://openreview.net/profile?id=~Dian_Zheng1">Dian Zheng<sup>5</sup></a>
+            <a href="https://openreview.net/profile?id=~Xiaoxing_Hu2">Xiaoxing Hu<sup>3</sup></a>
+            <a href="https://openreview.net/profile?id=~Yuhao_Dong1">Yuhao Dong<sup>6</sup></a>
+            <a href="https://openreview.net/profile?id=~Mengdan_Zhang2">Mengdan Zhang<sup>2</sup></a>
+            <a href="https://openreview.net/profile?id=~Yunhang_Shen1">Yunhang Shen<sup>2</sup></a>
+            <a href="https://openreview.net/profile?id=~Haoyu_Cao1">Haoyu Cao<sup>2</sup></a>
+            <a href="https://openreview.net/profile?id=~Wei_Liu3">Wei Liu<sup>2</sup></a>
+            <a href="https://openreview.net/profile?id=~Weibo_Gu2">Weibo Gu<sup>2</sup></a>
+            <a href="https://openreview.net/profile?id=~Xing_Sun1">Xing Sun<sup>2</sup></a>
+            <a href="https://openreview.net/profile?id=~Shengjie_Zhao1">Shengjie Zhao<sup>1,†</sup></a>
+          </div>
+
+          <div class="affiliations" aria-label="Affiliations">
+            <span><sup>1</sup>Tongji Univ.</span>
+            <span><sup>2</sup>Tencent Youtu Lab</span>
+            <span><sup>3</sup>SJTU</span>
+            <span><sup>4</sup>USTC</span>
+            <span><sup>5</sup>CUHK</span>
+            <span><sup>6</sup>NTU</span>
+          </div>
+          <p class="author-notes"><span><sup>*</sup>Equal contribution</span><span><sup>†</sup>Corresponding author</span></p>
+
+          <div class="resource-links" aria-label="Project resources">
+            <a class="resource-button primary" href="https://openreview.net/forum?id=5X5p1XGhZE">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v6h5M9 13h8M9 17h8"/></svg>
+              <span><small>Read the</small>Paper</span>
+            </a>
+            <a class="resource-button" href="https://github.com/Alexios-hub/Video-IFBench">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M14 5l-4 14"/></svg>
+              <span><small>Browse the</small>Code</span>
+            </a>
+            <a class="resource-button" href="https://huggingface.co/datasets/Alexislhb/Video-IFBench">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 10V7.8A4.8 4.8 0 0 1 11.8 3h.4A4.8 4.8 0 0 1 17 7.8V10M5 10h14v11H5z"/><path d="M9 15h.01M15 15h.01M10 18h4"/></svg>
+              <span><small>Explore the</small>Dataset</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="A video prompt branching into multiple constrained tasks">
+          <div class="visual-glow"></div>
+          <div class="video-card">
+            <div class="video-topline"><span></span><span></span><span></span></div>
+            <div class="video-scene">
+              <span class="mountain one"></span>
+              <span class="mountain two"></span>
+              <span class="sun"></span>
+              <span class="play" aria-hidden="true"></span>
+            </div>
+            <div class="video-label"><span>VIDEO INPUT</span><b>00:42</b></div>
+          </div>
+          <div class="branch-line branch-a"></div>
+          <div class="branch-line branch-b"></div>
+          <div class="branch-line branch-c"></div>
+          <div class="prompt-card prompt-a"><span>01</span><div><b>Identify</b><small>single task</small></div><i>✓</i></div>
+          <div class="prompt-card prompt-b"><span>02</span><div><b>Compare</b><small>multi-task</small></div><i>✓</i></div>
+          <div class="prompt-card prompt-c"><span>03</span><div><b>Format</b><small>nested constraints</small></div><i>✓</i></div>
+          <div class="constraint-chip chip-a">Temporal</div>
+          <div class="constraint-chip chip-b">Semantic</div>
+          <div class="constraint-chip chip-c">Format</div>
+        </div>
+      </section>
+
+      <section class="stats-band" aria-label="Dataset statistics">
+        <div class="stats-grid section-shell">
+          <div><strong>706</strong><span>videos</span></div>
+          <div><strong>1,465</strong><span>instructions</span></div>
+          <div><strong>4,129</strong><span>tasks</span></div>
+          <div><strong>7,794</strong><span>constraints</span></div>
+        </div>
+      </section>
+
+      <section id="overview" class="content-section section-shell reveal">
+        <div class="section-heading">
+          <p class="eyebrow">Overview</p>
+          <h2>Following the whole instruction—not just answering the question</h2>
+          <p>
+            Video-IFBench tests whether multimodal large language models can understand a video,
+            execute one or more requested tasks, and satisfy semantic and formatting constraints at
+            the same time.
+          </p>
+        </div>
+
+        <div class="contribution-grid">
+          <article class="feature-card">
+            <span class="feature-number">01</span>
+            <h3>Real video scenarios</h3>
+            <p>706 videos span 10 domains, grounding every instruction in visual and temporal evidence.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-number">02</span>
+            <h3>Compositional instructions</h3>
+            <p>Instructions combine 32 task types with 39 semantic and format constraint categories.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-number">03</span>
+            <h3>Constraint-level diagnosis</h3>
+            <p>A hybrid evaluator reports both fine-grained constraint success and strict instruction success.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="benchmark" class="content-section benchmark-section reveal">
+        <div class="section-shell">
+          <div class="section-heading compact">
+            <p class="eyebrow">Benchmark design</p>
+            <h2>Four instruction structures, increasing compositional pressure</h2>
+          </div>
+
+          <div class="instruction-grid">
+            <article class="instruction-card">
+              <div class="instruction-diagram single"><i></i><span></span></div>
+              <div class="instruction-meta"><span>01</span><small>Foundation</small></div>
+              <h3>Single</h3>
+              <p>One video-grounded task paired with one or more explicit response constraints.</p>
+            </article>
+            <article class="instruction-card">
+              <div class="instruction-diagram multi"><i></i><span></span><span></span></div>
+              <div class="instruction-meta"><span>02</span><small>Composition</small></div>
+              <h3>Multi</h3>
+              <p>Multiple independent tasks must all be completed in a single coherent response.</p>
+            </article>
+            <article class="instruction-card">
+              <div class="instruction-diagram selection"><i></i><span></span><em></em></div>
+              <div class="instruction-meta"><span>03</span><small>Conditional</small></div>
+              <h3>Selection</h3>
+              <p>The correct task or response path depends on evidence identified in the video.</p>
+            </article>
+            <article class="instruction-card">
+              <div class="instruction-diagram nested"><i></i><span></span><em></em><b></b></div>
+              <div class="instruction-meta"><span>04</span><small>Hierarchy</small></div>
+              <h3>Nested</h3>
+              <p>Tasks and constraints are embedded hierarchically to test structured execution.</p>
+            </article>
+          </div>
+
+          <div class="taxonomy-panel">
+            <div>
+              <p class="eyebrow">Coverage</p>
+              <h3>A broad taxonomy for precise failure analysis</h3>
+              <p>
+                The benchmark crosses video domains, task types, instruction structures, and
+                constraint categories instead of collapsing instruction following into a single prompt style.
+              </p>
+            </div>
+            <dl class="taxonomy-list">
+              <div><dt>10</dt><dd>video domains</dd></div>
+              <div><dt>32</dt><dd>task types</dd></div>
+              <div><dt>39</dt><dd>constraint categories</dd></div>
+              <div><dt>4</dt><dd>instruction structures</dd></div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section id="evaluation" class="content-section section-shell reveal">
+        <div class="section-heading">
+          <p class="eyebrow">Evaluation protocol</p>
+          <h2>A hybrid evaluator that checks execution and compliance</h2>
+          <p>
+            Each response passes through a task-execution gate before semantic, video-grounded,
+            and deterministic constraints are scored.
+          </p>
+        </div>
+
+        <div class="pipeline" aria-label="Evaluation pipeline">
+          <article class="pipeline-node input-node">
+            <span>Input</span><h3>Model response</h3><p>Generated from the video and instruction.</p>
+          </article>
+          <span class="pipeline-arrow" aria-hidden="true">→</span>
+          <article class="pipeline-node gate-node">
+            <span>Stage 1</span><h3>Task execution</h3><p>Verify that every requested task was attempted.</p>
+          </article>
+          <span class="pipeline-arrow split-arrow" aria-hidden="true">→</span>
+          <div class="pipeline-branches">
+            <article class="pipeline-node">
+              <span>Stage 2</span><h3>Semantic checks</h3><p>LLM-based judging for meaning and video grounding.</p>
+            </article>
+            <article class="pipeline-node">
+              <span>Stage 3</span><h3>Rule checks</h3><p>Deterministic validation for objective constraints.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="metric-grid">
+          <article class="metric-card">
+            <div class="metric-symbol">TCSR</div>
+            <div><h3>Task Constraint Success Rate</h3><p>Fine-grained success across task-specific constraints.</p></div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-symbol">TISR</div>
+            <div><h3>Task Instruction Success Rate</h3><p>Strict success only when the full instruction is satisfied.</p></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="toolkit" class="content-section toolkit-section reveal">
+        <div class="section-shell">
+          <div class="section-heading compact">
+            <p class="eyebrow">Open evaluation toolkit</p>
+            <h2>Run Video-IFBench with an OpenAI-compatible endpoint</h2>
+            <p>The public toolkit supports resumable inference, optional ASR, hybrid scoring, and metric summaries.</p>
+          </div>
+
+          <div class="code-tabs" data-tabs>
+            <div class="tab-list" role="tablist" aria-label="Quick start commands">
+              <button role="tab" aria-selected="true" aria-controls="panel-install" id="tab-install">Install</button>
+              <button role="tab" aria-selected="false" aria-controls="panel-data" id="tab-data" tabindex="-1">Data</button>
+              <button role="tab" aria-selected="false" aria-controls="panel-run" id="tab-run" tabindex="-1">Evaluate</button>
+              <button role="tab" aria-selected="false" aria-controls="panel-score" id="tab-score" tabindex="-1">Score</button>
+            </div>
+            <div class="code-panel" role="tabpanel" id="panel-install" aria-labelledby="tab-install">
+              <button class="copy-button" type="button" data-copy aria-label="Copy install command">Copy</button>
+              <pre><code>git clone https://github.com/Alexios-hub/Video-IFBench.git
+cd Video-IFBench
+pip install -e .</code></pre>
+            </div>
+            <div class="code-panel" role="tabpanel" id="panel-data" aria-labelledby="tab-data" hidden>
+              <button class="copy-button" type="button" data-copy aria-label="Copy dataset command">Copy</button>
+              <pre><code>huggingface-cli download Alexislhb/Video-IFBench \
+  --repo-type dataset \
+  --local-dir data/Video-IFBench</code></pre>
+            </div>
+            <div class="code-panel" role="tabpanel" id="panel-run" aria-labelledby="tab-run" hidden>
+              <button class="copy-button" type="button" data-copy aria-label="Copy evaluation command">Copy</button>
+<pre><code>video-ifbench-run \
+  --dataset-root data/Video-IFBench \
+  --output-dir outputs/model_name \
+  --api-base http://localhost:8000/v1 \
+  --model model_name \
+  --media-mode video-url \
+  --concurrency 32 \
+  --resume</code></pre>
+            </div>
+            <div class="code-panel" role="tabpanel" id="panel-score" aria-labelledby="tab-score" hidden>
+              <button class="copy-button" type="button" data-copy aria-label="Copy scoring commands">Copy</button>
+              <pre><code>video-ifbench-score \
+  --response-dir outputs/model_name \
+  --output-json outputs/model_name/_instruction_following_report.json \
+  --judge-api-base http://localhost:8001/v1 \
+  --judge-model judge_model_name \
+  --concurrency 16
+
+video-ifbench-summarize \
+  --report outputs/model_name/_instruction_following_report.json \
+  --model-name "model_name" \
+  --format latex</code></pre>
+            </div>
+          </div>
+          <p class="toolkit-note">
+            See the <a href="https://github.com/Alexios-hub/Video-IFBench#getting-started">repository README</a>
+            for ASR, retry, frame-fallback, and thinking-mode options.
+          </p>
+        </div>
+      </section>
+
+      <section id="citation" class="content-section section-shell reveal">
+        <div class="section-heading compact">
+          <p class="eyebrow">Citation</p>
+          <h2>Use Video-IFBench in your research</h2>
+        </div>
+        <div class="citation-card">
+          <button class="copy-button" type="button" data-copy aria-label="Copy BibTeX">Copy BibTeX</button>
+          <pre><code>@misc{liu2026videoifbench,
+  title  = {Video-IFBench: Evaluating Instruction Following of
+            Multimodal LLMs in Video Understanding Scenarios},
+  author = {Hongbo Liu and Peixian Chen and Sihan Liu and Peiyuan Zhang
+            and Kai Zou and Dian Zheng and Xiaoxing Hu and Yuhao Dong
+            and Mengdan Zhang and Yunhang Shen and Haoyu Cao and Wei Liu
+            and Weibo Gu and Xing Sun and Shengjie Zhao},
+  year   = {2026},
+  url    = {https://openreview.net/forum?id=5X5p1XGhZE}
+}</code></pre>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="section-shell footer-inner">
+        <div>
+          <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>Video-IFBench</a>
+          <p>Benchmarking instruction following in video understanding.</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://openreview.net/forum?id=5X5p1XGhZE">Paper</a>
+          <a href="https://github.com/Alexios-hub/Video-IFBench">Code</a>
+          <a href="https://huggingface.co/datasets/Alexislhb/Video-IFBench">Dataset</a>
+        </div>
+        <p class="license-note">Dataset licensed under CC BY-NC 4.0.</p>
+      </div>
+    </footer>
+  </body>
+</html>
