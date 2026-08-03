@@ -82,40 +82,22 @@
 
     <section id="overview">
       <div class="container">
-        <p class="text-header">Overview</p>
-        <ul class="body-text overview-list">
-          <li><strong>Video-IFBench</strong> is a comprehensive benchmark for instruction following in video understanding. It contains 1.5K high-quality samples over more than 700 videos and spans four instruction templates, 32 video-understanding task types, and 39 semantic or format constraints.</li>
-          <li>Its semi-automatic construction pipeline combines MLLM-assisted video annotation, task and constraint sampling, complex instruction generation, checklist construction, programmatic processing, and rigorous human verification.</li>
-          <li>An evaluation of more than 20 recent MLLMs shows that even the strongest model reaches only <strong>54.5 TISR</strong>. Models struggle most with many constraints, semantic constraints, and conditional structures that require choosing the correct branch or path from video evidence.</li>
-        </ul>
-
-        <figure class="paper-figure figure-frame">
+        <figure class="paper-figure">
           <img src="assets/paper/overview.webp" alt="Video-IFBench data construction pipeline, from video curation through instruction and checklist generation" width="2600" height="1962">
-          <figcaption><strong>Figure 1.</strong> The Video-IFBench construction pipeline. Curated videos receive global descriptions and timestamped facts; these support Single/Multi instructions and condition-based Selection/Nested instructions, each paired with a verifiable checklist.</figcaption>
         </figure>
+        <p class="body-text overview-copy"><strong>Overview of Video-IFBench.</strong> Video-IFBench evaluates instruction following in video understanding through Single, Multi, Selection, and Nested instructions. Its construction pipeline combines video annotation, task and constraint sampling, complex instruction generation, checklist construction, programmatic processing, and human verification. Extensive evaluation shows that current MLLMs still struggle with strict satisfaction, especially as constraints accumulate or conditional structures require evidence-grounded branch selection.</p>
       </div>
     </section>
 
     <section id="benchmark">
       <div class="container">
-        <p class="text-header">Benchmark Design</p>
-
-        <div class="stats-row" aria-label="Video-IFBench statistics">
-          <div class="stat-item"><span class="stat-value">1.5K</span><span class="stat-label">Samples</span></div>
-          <div class="stat-item"><span class="stat-value">706</span><span class="stat-label">Videos</span></div>
-          <div class="stat-item"><span class="stat-value">4</span><span class="stat-label">Templates</span></div>
-          <div class="stat-item"><span class="stat-value">32</span><span class="stat-label">Task Types</span></div>
-          <div class="stat-item"><span class="stat-value">39</span><span class="stat-label">Constraints</span></div>
-          <div class="stat-item"><span class="stat-value">20+</span><span class="stat-label">MLLMs</span></div>
-        </div>
-
-        <p class="subsection-title">Dataset-level statistics</p>
+        <p class="text-header">Dataset Statistics</p>
         <div class="figure-grid uneven">
-          <figure class="paper-figure figure-frame">
+          <figure class="paper-figure">
             <img src="assets/paper/instruction-types.webp" alt="Distribution of Single, Multi, Selection, and Nested instructions" width="2534" height="1425">
             <figcaption><strong>Figure 2a.</strong> Instruction types: Single 34.0%, Multi 27.3%, Selection 19.4%, and Nested 19.4%.</figcaption>
           </figure>
-          <figure class="paper-figure figure-frame">
+          <figure class="paper-figure">
             <img src="assets/paper/video-stats.webp" alt="Final-paper distribution of 706 videos across ten domains and ten duration bins" width="1115" height="340">
             <figcaption><strong>Figure 2b.</strong> Video domains and durations. Videos cover ten broad domains and range from one to ten minutes.</figcaption>
           </figure>
@@ -123,11 +105,11 @@
 
         <p class="subsection-title">Instruction and constraint statistics</p>
         <div class="figure-grid">
-          <figure class="paper-figure figure-frame">
+          <figure class="paper-figure">
             <img src="assets/paper/constraints-distribution.webp" alt="Taxonomy and frequency distribution of 22 semantic and 17 format constraints" width="2534" height="1425">
             <figcaption><strong>Figure 3a.</strong> The 39-category constraint taxonomy contains 22 semantic and 17 format constraints.</figcaption>
           </figure>
-          <figure class="paper-figure figure-frame">
+          <figure class="paper-figure">
             <img src="assets/paper/instruction-structures.webp" alt="Constraint, task, branch, and depth distributions for four instruction structures" width="1369" height="803">
             <figcaption><strong>Figure 3b.</strong> Structure statistics for Single constraint count, Multi task count, Selection branch count, and Nested depth.</figcaption>
           </figure>
@@ -700,17 +682,17 @@
       <div class="container">
         <p class="text-header">Further Analysis</p>
 
-        <figure class="paper-figure figure-frame">
+        <figure class="paper-figure">
           <img src="assets/paper/hardest-constraints.webp" alt="Performance ranges of proprietary, open-source instruct, and open-source thinking models on the 15 hardest constraints" width="3021" height="1167">
           <figcaption><strong>Figure 4.</strong> Performance on the 15 most challenging constraints. Temporal grounding and condition-dependent content selection are consistently difficult; proprietary models generally lead, while thinking variants raise the upper bound for many open-source families.</figcaption>
         </figure>
 
         <div class="figure-grid">
-          <figure class="paper-figure figure-frame">
+          <figure class="paper-figure">
             <img src="assets/paper/family-scaling.webp" alt="TCSR and TISR scaling trends across model families and sizes" width="1188" height="770">
             <figcaption><strong>Figure 5a.</strong> Scaling across model families. Larger models generally improve instruction following, although gains vary by family.</figcaption>
           </figure>
-          <figure class="paper-figure figure-frame">
+          <figure class="paper-figure">
             <img src="assets/paper/semantic-vs-format.webp" alt="Semantic versus format constraint satisfaction for representative models" width="1349" height="892">
             <figcaption><strong>Figure 5b.</strong> Models perform substantially worse on semantic constraints than on format constraints.</figcaption>
           </figure>
@@ -750,11 +732,11 @@
         <p class="body-text analysis-copy">Task pass rates are relatively stable for capable models, while strict instruction satisfaction drops sharply as constraints accumulate. For example, Gemini-3-Pro falls from 62.7 TISR at 1–4 constraints to 46.9 at 9+, and Qwen3-Omni-30B-A3B-Instruct falls from 40.1 to 3.5.</p>
 
         <div class="figure-grid">
-          <figure class="paper-figure figure-frame">
+          <figure class="paper-figure">
             <img src="assets/paper/nested-depth.webp" alt="Task pass rate decreases as Nested instruction depth increases" width="1258" height="637">
             <figcaption><strong>Figure 6.</strong> Depth sensitivity on Nested instructions. Gemini-3-Pro declines from 64.6% at depth 2–4 to 55.6% at depth 8–14; the strongest open-source model declines from 40.5% to 22.2%.</figcaption>
           </figure>
-          <figure class="paper-figure figure-frame">
+          <figure class="paper-figure">
             <img src="assets/paper/thinking-mode.webp" alt="Effect of thinking mode on semantic and format constraints" width="2320" height="815">
             <figcaption><strong>Figure 7.</strong> Thinking-mode gains are model-dependent and tend to be larger on semantic than format constraints.</figcaption>
           </figure>
@@ -800,7 +782,6 @@
     <section id="examples">
       <div class="container">
         <p class="text-header">Qualitative Examples</p>
-        <p class="body-text text-center">Examples from the paper show representative failure modes across the four instruction structures.</p>
         <div class="sample-buttons" role="tablist" aria-label="Instruction example type">
           <button class="button active" type="button" role="tab" aria-selected="true" data-sample-target="single">Single</button>
           <button class="button" type="button" role="tab" aria-selected="false" data-sample-target="multi">Multi</button>
@@ -810,19 +791,15 @@
 
         <div class="sample-viewer active" data-sample-panel="single">
           <a href="assets/paper/case-single.webp" target="_blank"><img src="assets/paper/case-single.webp" alt="Single instruction example with six constraints and model responses" width="1900" height="2534"></a>
-          <p>A Single instruction with six constraints. Two evaluated models fail a forbidden-color-word requirement.</p>
         </div>
         <div class="sample-viewer" data-sample-panel="multi">
           <a href="assets/paper/case-multi.webp" target="_blank"><img src="assets/paper/case-multi.webp" alt="Multi instruction example with twelve constraints and model response" width="1900" height="2534"></a>
-          <p>A Multi instruction with twelve constraints. Gemini-3-Pro mentions an event shorter than the requested duration threshold.</p>
         </div>
         <div class="sample-viewer" data-sample-panel="selection">
           <a href="assets/paper/case-selection.webp" target="_blank"><img src="assets/paper/case-selection.webp" alt="Selection instruction example with seven branches and model responses" width="1900" height="2534"></a>
-          <p>A Selection instruction with seven branches. Qwen3.5-397B-A17B-Think follows the wrong branch.</p>
         </div>
         <div class="sample-viewer" data-sample-panel="nested">
           <a href="assets/paper/case-nested.webp" target="_blank"><img src="assets/paper/case-nested.webp" alt="Nested instruction example with maximum depth fifteen and model responses" width="1900" height="2534"></a>
-          <p>A Nested instruction with maximum depth 15. Gemini-3-Pro follows the wrong path through the condition tree.</p>
         </div>
       </div>
     </section>
