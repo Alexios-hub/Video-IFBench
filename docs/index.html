@@ -29,7 +29,7 @@
             </p>
 
             <div class="publication-authors author-list">
-              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Hongbo_Liu7" target="_blank" rel="noopener">Hongbo Liu</a><sup>1,*</sup>,</span>
+              <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=GcgqbCUAAAAJ&amp;hl=zh-CN" target="_blank" rel="noopener">Hongbo Liu</a><sup>1,*</sup>,</span>
               <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=WRGF9B8AAAAJ" target="_blank" rel="noopener">Peixian Chen</a><sup>2,*</sup>,</span>
               <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Sihan_liu6" target="_blank" rel="noopener">Sihan Liu</a><sup>2</sup>,</span>
               <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Peiyuan_Zhang3" target="_blank" rel="noopener">Peiyuan Zhang</a><sup>3</sup>,</span>
@@ -117,33 +117,9 @@
       </div>
     </section>
 
-    <section id="evaluation">
-      <div class="container">
-        <p class="text-header">Evaluation Protocol</p>
-        <p class="body-text evaluation-intro">Each response is first checked for task-level coverage. Active checklist items are then evaluated with an LLM judge using video-grounded context or with deterministic verifiers for programmatically checkable constraints.</p>
-        <div class="metric-formulas">
-          <div class="metric-formula">
-            <h3>TCSR</h3>
-            <span class="formula">(1/N) &sum;<sub>i</sub> t<sub>i</sub> &middot; (1/n<sub>i</sub>) &sum;<sub>j</sub> c<sub>ij</sub></span>
-            <p>Task-gated average constraint satisfaction. It measures how many checklist items are satisfied after the active task passes.</p>
-          </div>
-          <div class="metric-formula">
-            <h3>TISR</h3>
-            <span class="formula">(1/N) &sum;<sub>i</sub> t<sub>i</sub> &middot; &prod;<sub>j</sub> c<sub>ij</sub></span>
-            <p>Task-gated strict instruction satisfaction. Every active checklist item must pass simultaneously.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section id="results">
       <div class="container">
         <p class="text-header">Main Results</p>
-        <div class="result-summary">
-          <div class="finding"><strong>Strongest overall</strong>Gemini-3-Pro reaches 76.5 TCSR and 54.5 TISR.</div>
-          <div class="finding"><strong>Best open-source model</strong>Qwen3.5-397B-A17B-Think reaches 69.6 TCSR and 46.1 TISR.</div>
-          <div class="finding"><strong>Strict following remains hard</strong>TISR is consistently lower than TCSR across every evaluated model.</div>
-        </div>
 
         <div class="table-responsive" role="region" aria-label="Table 1 main results" tabindex="0">
             <table class="evaluation-table">
@@ -698,39 +674,6 @@
           </figure>
         </div>
 
-        <p class="subsection-title">Task and constraint scaling</p>
-        <div class="figure-grid">
-          <div class="mini-table-wrap">
-            <table class="compact-table">
-              <caption><strong>Table 2a.</strong> Task pass rate on Single and Multi instructions.</caption>
-              <thead><tr><th>Model</th><th>1–4</th><th>5–8</th><th>9+</th></tr></thead>
-              <tbody>
-                <tr><th>Gemini-3-Pro</th><td>95.6</td><td>94.9</td><td>96.3</td></tr>
-                <tr><th>Gemini-3-Flash</th><td>93.9</td><td>95.7</td><td>94.3</td></tr>
-                <tr><th>Qwen3.5-397B-A17B-Think</th><td>95.5</td><td>92.6</td><td>95.8</td></tr>
-                <tr><th>Gemma-4-31B-it</th><td>90.5</td><td>92.5</td><td>91.8</td></tr>
-                <tr><th>Qwen3-Omni-30B-A3B-Instruct</th><td>84.5</td><td>81.0</td><td>76.9</td></tr>
-                <tr><th>Gemma-4-E4B-it</th><td>81.0</td><td>79.1</td><td>84.1</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="mini-table-wrap">
-            <table class="compact-table">
-              <caption><strong>Table 2b.</strong> TISR on Single instructions as constraints increase.</caption>
-              <thead><tr><th>Model</th><th>1–4</th><th>5–8</th><th>9+</th></tr></thead>
-              <tbody>
-                <tr><th>Gemini-3-Pro</th><td>62.7</td><td>51.8</td><td>46.9</td></tr>
-                <tr><th>Gemini-3-Flash</th><td>59.3</td><td>47.5</td><td>46.9</td></tr>
-                <tr><th>Qwen3.5-397B-A17B-Think</th><td>58.2</td><td>43.9</td><td>42.5</td></tr>
-                <tr><th>Gemma-4-31B-it</th><td>53.7</td><td>39.6</td><td>29.2</td></tr>
-                <tr><th>Qwen3-Omni-30B-A3B-Instruct</th><td>40.1</td><td>11.5</td><td>3.5</td></tr>
-                <tr><th>Gemma-4-E4B-it</th><td>38.4</td><td>12.9</td><td>7.1</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <p class="body-text analysis-copy">Task pass rates are relatively stable for capable models, while strict instruction satisfaction drops sharply as constraints accumulate. For example, Gemini-3-Pro falls from 62.7 TISR at 1–4 constraints to 46.9 at 9+, and Qwen3-Omni-30B-A3B-Instruct falls from 40.1 to 3.5.</p>
-
         <div class="figure-grid">
           <figure class="paper-figure">
             <img src="assets/paper/nested-depth.webp" alt="Task pass rate decreases as Nested instruction depth increases" width="1258" height="637">
@@ -742,40 +685,6 @@
           </figure>
         </div>
 
-        <p class="subsection-title">Selection branch count and position</p>
-        <div class="figure-grid">
-          <div class="mini-table-wrap">
-            <table class="compact-table">
-              <caption><strong>Table 3a.</strong> Task pass rate by number of branches.</caption>
-              <thead><tr><th>Model</th><th>2</th><th>3</th><th>4</th></tr></thead>
-              <tbody>
-                <tr><th>Gemini-3-Flash</th><td>66.7</td><td>58.0</td><td>56.5</td></tr>
-                <tr><th>Qwen3.5-397B-A17B-Think</th><td>68.1</td><td>59.4</td><td>59.4</td></tr>
-                <tr><th>Qwen3.5-397B-A17B-Instruct</th><td>58.0</td><td>50.7</td><td>39.1</td></tr>
-                <tr><th>Qwen3.5-9B-Instruct</th><td>37.7</td><td>24.6</td><td>27.5</td></tr>
-                <tr><th>Gemma-4-31B-it</th><td>50.7</td><td>46.4</td><td>36.2</td></tr>
-                <tr><th>Gemma-4-E4B-it</th><td>43.5</td><td>27.5</td><td>19.1</td></tr>
-                <tr><th>Qwen3-Omni-30B-A3B-Instruct</th><td>43.9</td><td>30.4</td><td>17.4</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="mini-table-wrap">
-            <table class="compact-table">
-              <caption><strong>Table 3b.</strong> Task pass rate by correct-branch position.</caption>
-              <thead><tr><th>Model</th><th>1</th><th>2</th><th>3</th></tr></thead>
-              <tbody>
-                <tr><th>Gemini-3-Flash</th><td>66.7</td><td>66.7</td><td>54.9</td></tr>
-                <tr><th>Qwen3.5-397B-A17B-Think</th><td>76.5</td><td>58.8</td><td>52.9</td></tr>
-                <tr><th>Qwen3.5-397B-A17B-Instruct</th><td>70.6</td><td>35.3</td><td>29.4</td></tr>
-                <tr><th>Qwen3.5-9B-Instruct</th><td>45.1</td><td>21.6</td><td>15.7</td></tr>
-                <tr><th>Gemma-4-31B-it</th><td>33.3</td><td>43.1</td><td>39.2</td></tr>
-                <tr><th>Gemma-4-E4B-it</th><td>33.3</td><td>8.3</td><td>5.9</td></tr>
-                <tr><th>Qwen3-Omni-30B-A3B-Instruct</th><td>23.5</td><td>12.0</td><td>18.0</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <p class="body-text analysis-copy">More candidate branches generally reduce task pass rate. Most models also show a preference for earlier branches, revealing position bias in conditional instruction following.</p>
       </div>
     </section>
 
