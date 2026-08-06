@@ -5,35 +5,6 @@
 ### Evaluating Instruction Following of Multimodal LLMs in Video Understanding Scenarios
 
 <p>
-  <a href="https://openreview.net/profile?id=~Hongbo_Liu7">Hongbo Liu</a><sup>1,*</sup>,
-  <a href="https://openreview.net/profile?id=~Peixian_Chen2">Peixian Chen</a><sup>2,*</sup>,
-  <a href="https://openreview.net/profile?id=~Sihan_liu6">Sihan Liu</a><sup>2</sup>,
-  <a href="https://openreview.net/profile?id=~Peiyuan_Zhang3">Peiyuan Zhang</a><sup>3</sup>,
-  <a href="https://openreview.net/profile?id=~Kai_Zou4">Kai Zou</a><sup>4</sup>,
-  <a href="https://openreview.net/profile?id=~Dian_Zheng1">Dian Zheng</a><sup>5</sup>,
-  <a href="https://openreview.net/profile?id=~Xiaoxing_Hu2">Xiaoxing Hu</a><sup>3</sup>,
-  <a href="https://openreview.net/profile?id=~Yuhao_Dong1">Yuhao Dong</a><sup>6</sup>,
-  <a href="https://openreview.net/profile?id=~Mengdan_Zhang2">Mengdan Zhang</a><sup>2</sup>,
-  <a href="https://openreview.net/profile?id=~Yunhang_Shen1">Yunhang Shen</a><sup>2</sup>,
-  <a href="https://openreview.net/profile?id=~Haoyu_Cao1">Haoyu Cao</a><sup>2</sup>,
-  <a href="https://openreview.net/profile?id=~Wei_Liu3">Wei Liu</a><sup>2</sup>,
-  <a href="https://openreview.net/profile?id=~Weibo_Gu2">Weibo Gu</a><sup>2</sup>,
-  <a href="https://openreview.net/profile?id=~Xing_Sun1">Xing Sun</a><sup>2</sup>,
-  <a href="https://openreview.net/profile?id=~Shengjie_Zhao1">Shengjie Zhao</a><sup>1,&#8224;</sup>
-</p>
-
-<p>
-  <sup>1</sup>Tongji Univ. &nbsp;
-  <sup>2</sup>Tencent Youtu Lab &nbsp;
-  <sup>3</sup>SJTU &nbsp;
-  <sup>4</sup>USTC &nbsp;
-  <sup>5</sup>CUHK &nbsp;
-  <sup>6</sup>NTU
-</p>
-
-<p><sup>*</sup>Equal contribution. &nbsp; <sup>&#8224;</sup>Corresponding author.</p>
-
-<p>
   <a href="https://openreview.net/forum?id=5X5p1XGhZE"><strong>Paper</strong></a> &nbsp;|&nbsp;
   <a href="https://alexios-hub.github.io/Video-IFBench/"><strong>Project Page</strong></a> &nbsp;|&nbsp;
   <a href="https://github.com/Alexios-hub/Video-IFBench"><strong>Code</strong></a> &nbsp;|&nbsp;
@@ -193,9 +164,9 @@ Video-IFBench/
 If this benchmark or toolkit is useful in your work, please cite the manuscript:
 
 ```bibtex
-@misc{liu2026videoifbench,
+@misc{videoifbench2026,
   title  = {Video-IFBench: Evaluating Instruction Following of Multimodal LLMs in Video Understanding Scenarios},
-  author = {Hongbo Liu and Peixian Chen and Sihan Liu and Peiyuan Zhang and Kai Zou and Dian Zheng and Xiaoxing Hu and Yuhao Dong and Mengdan Zhang and Yunhang Shen and Haoyu Cao and Wei Liu and Weibo Gu and Xing Sun and Shengjie Zhao},
+  author = {Anonymous Authors},
   year   = {2026},
   url    = {https://openreview.net/forum?id=5X5p1XGhZE}
 }
