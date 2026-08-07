@@ -21,10 +21,6 @@
 
 **Video-IFBench** is a benchmark for evaluating instruction following in video understanding. The public release combines a final evaluation split with a lightweight toolkit for running and scoring multimodal LLMs through OpenAI-compatible endpoints.
 
-| **706** | **1,465** | **4,129** | **7,794** |
-|:---:|:---:|:---:|:---:|
-| Videos | Instructions | Tasks | Constraints |
-
 Video-IFBench evaluates four instruction structures and separates task completion from fine-grained constraint satisfaction. Its evaluation protocol combines task-execution judging, semantic and video-grounded LLM judging, and deterministic rule-based checks.
 
 ## Benchmark Design
