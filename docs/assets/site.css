@@ -154,6 +154,30 @@ section {
   object-fit: contain;
 }
 
+@media (min-width: 901px) {
+  @supports (grid-template-rows: subgrid) {
+    .figure-grid {
+      align-items: stretch;
+      row-gap: 0;
+    }
+
+    .figure-grid > .paper-figure {
+      display: grid;
+      grid-row: span 2;
+      grid-template-rows: subgrid;
+    }
+
+    .figure-grid > .paper-figure > img {
+      align-self: end;
+      height: auto;
+    }
+
+    .figure-grid > .paper-figure > figcaption {
+      align-self: start;
+    }
+  }
+}
+
 .subsection-title {
   margin: 28px 0 10px;
   font-size: 1.28rem;
