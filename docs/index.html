@@ -31,19 +31,19 @@
             <div class="publication-authors author-list">
               <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=GcgqbCUAAAAJ&amp;hl=zh-CN" target="_blank" rel="noopener">Hongbo Liu</a><sup>1,*</sup>,</span>
               <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=WRGF9B8AAAAJ" target="_blank" rel="noopener">Peixian Chen</a><sup>2,*</sup>,</span>
-              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Sihan_liu6" target="_blank" rel="noopener">Sihan Liu</a><sup>2</sup>,</span>
-              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Peiyuan_Zhang3" target="_blank" rel="noopener">Peiyuan Zhang</a><sup>3</sup>,</span>
+              <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=N_0VdSwAAAAJ" target="_blank" rel="noopener">Sihan Liu</a><sup>2</sup>,</span>
+              <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=rQbW67AAAAAJ" target="_blank" rel="noopener">Peiyuan Zhang</a><sup>3</sup>,</span>
               <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=Bd6y_UsAAAAJ" target="_blank" rel="noopener">Kai Zou</a><sup>4</sup>,</span>
               <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=0dkD_dcAAAAJ" target="_blank" rel="noopener">Dian Zheng</a><sup>5</sup>,</span>
-              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Xiaoxing_Hu2" target="_blank" rel="noopener">Xiaoxing Hu</a><sup>3</sup>,</span>
+              <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=zBM8_XkAAAAJ" target="_blank" rel="noopener">Xiaoxing Hu</a><sup>3</sup>,</span>
               <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=kMui170AAAAJ" target="_blank" rel="noopener">Yuhao Dong</a><sup>6</sup>,</span>
-              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Mengdan_Zhang2" target="_blank" rel="noopener">Mengdan Zhang</a><sup>2</sup>,</span>
+              <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=C941xtsAAAAJ" target="_blank" rel="noopener">Mengdan Zhang</a><sup>2</sup>,</span>
               <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=29teR74AAAAJ" target="_blank" rel="noopener">Yunhang Shen</a><sup>2</sup>,</span>
               <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=LV8ejn8AAAAJ" target="_blank" rel="noopener">Haoyu Cao</a><sup>2</sup>,</span>
               <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=AjxoEpIAAAAJ" target="_blank" rel="noopener">Wei Liu</a><sup>2</sup>,</span>
-              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Weibo_Gu2" target="_blank" rel="noopener">Weibo Gu</a><sup>2</sup>,</span>
+              <span class="list-inline-item">Weibo Gu<sup>2</sup>,</span>
               <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=IUtix9IAAAAJ" target="_blank" rel="noopener">Xing Sun</a><sup>2</sup>,</span>
-              <span class="list-inline-item"><a href="https://openreview.net/profile?id=~Shengjie_Zhao1" target="_blank" rel="noopener">Shengjie Zhao</a><sup>1,&dagger;</sup></span>
+              <span class="list-inline-item">Shengjie Zhao<sup>1,&dagger;</sup></span>
             </div>
 
             <div class="publication-authors author-note">
@@ -685,6 +685,27 @@
           </figure>
         </div>
 
+      </div>
+    </section>
+
+    <section id="insights">
+      <div class="container">
+        <p class="text-header">Conclusions &amp; Insights</p>
+        <div class="result-summary">
+          <div class="finding">
+            <strong>Partial compliance remains the norm</strong>
+            Instruction-level success consistently trails constraint-level scores, showing that models often satisfy only part of a request.
+          </div>
+          <div class="finding">
+            <strong>Semantic grounding is the bottleneck</strong>
+            Temporal grounding and condition-dependent content selection remain especially difficult, while semantic constraints lag behind format constraints.
+          </div>
+          <div class="finding">
+            <strong>Reasoning gains are uneven</strong>
+            Larger models generally perform better and thinking mode can help on semantic constraints, but gains vary by model and reliability still falls with deeper nested instructions.
+          </div>
+        </div>
+        <p class="body-text analysis-copy"><strong>Conclusion.</strong> Video-IFBench shows that strong video understanding does not yet translate into faithful execution of complex user intent. Current MLLMs still struggle with constraint-rich and conditional video instructions, motivating better evidence grounding, structured reasoning, and complete constraint satisfaction.</p>
       </div>
     </section>
 
