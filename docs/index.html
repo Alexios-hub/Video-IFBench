@@ -41,9 +41,9 @@
               <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=29teR74AAAAJ" target="_blank" rel="noopener">Yunhang Shen</a><sup>2</sup>,</span>
               <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=LV8ejn8AAAAJ" target="_blank" rel="noopener">Haoyu Cao</a><sup>2</sup>,</span>
               <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=AjxoEpIAAAAJ" target="_blank" rel="noopener">Wei Liu</a><sup>2</sup>,</span>
-              <span class="list-inline-item">Weibo Gu<sup>2</sup>,</span>
+              <span class="list-inline-item"><a class="author-link-disabled" role="link" aria-disabled="true" tabindex="-1">Weibo Gu</a><sup>2</sup>,</span>
               <span class="list-inline-item"><a href="https://scholar.google.com/citations?user=IUtix9IAAAAJ" target="_blank" rel="noopener">Xing Sun</a><sup>2</sup>,</span>
-              <span class="list-inline-item">Shengjie Zhao<sup>1,&dagger;</sup></span>
+              <span class="list-inline-item"><a class="author-link-disabled" role="link" aria-disabled="true" tabindex="-1">Shengjie Zhao</a><sup>1,&dagger;</sup></span>
             </div>
 
             <div class="publication-authors author-note">
@@ -688,24 +688,15 @@
       </div>
     </section>
 
-    <section id="insights">
+    <section id="conclusion">
       <div class="container">
-        <p class="text-header">Conclusions &amp; Insights</p>
-        <div class="result-summary">
-          <div class="finding">
-            <strong>Partial compliance remains the norm</strong>
-            Instruction-level success consistently trails constraint-level scores, showing that models often satisfy only part of a request.
-          </div>
-          <div class="finding">
-            <strong>Semantic grounding is the bottleneck</strong>
-            Temporal grounding and condition-dependent content selection remain especially difficult, while semantic constraints lag behind format constraints.
-          </div>
-          <div class="finding">
-            <strong>Reasoning gains are uneven</strong>
-            Larger models generally perform better and thinking mode can help on semantic constraints, but gains vary by model and reliability still falls with deeper nested instructions.
-          </div>
-        </div>
-        <p class="body-text analysis-copy"><strong>Conclusion.</strong> Video-IFBench shows that strong video understanding does not yet translate into faithful execution of complex user intent. Current MLLMs still struggle with constraint-rich and conditional video instructions, motivating better evidence grounding, structured reasoning, and complete constraint satisfaction.</p>
+        <p class="text-header">Conclusion</p>
+        <ul class="body-text analysis-copy conclusion-list">
+          <li>Current MLLMs often satisfy only a subset of the requested constraints, leaving a consistent gap between constraint-level and strict instruction-level success.</li>
+          <li>Temporal grounding, condition-dependent content selection, and other semantic constraints remain substantially harder than format constraints.</li>
+          <li>Scaling and thinking mode can improve performance, but gains are model-dependent and reliability still declines as nested instructions become deeper.</li>
+          <li>Video-IFBench highlights the need for stronger evidence grounding, structured reasoning, and reliable satisfaction of every user requirement.</li>
+        </ul>
       </div>
     </section>
 
