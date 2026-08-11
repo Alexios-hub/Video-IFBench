@@ -91,6 +91,14 @@ section {
   transform: translateY(-2px);
 }
 
+.resource-button[aria-disabled="true"] {
+  cursor: default;
+}
+
+.resource-button[aria-disabled="true"]:hover {
+  transform: none;
+}
+
 .resource-button:focus-visible,
 .button:focus-visible,
 .copy-button:focus-visible {
