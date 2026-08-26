@@ -60,36 +60,6 @@
   <img src="docs/assets/paper/overview.webp" alt="Overview of the Video-IFBench construction and evaluation pipeline" width="100%">
 </p>
 
-## 🎬 Overview
-
-**Video-IFBench** is a benchmark for evaluating instruction following in video understanding. The public release combines a final evaluation split with a lightweight toolkit for running and scoring multimodal LLMs through OpenAI-compatible endpoints.
-
-Video-IFBench evaluates four instruction structures and separates task completion from fine-grained constraint satisfaction. Its evaluation protocol combines task-execution judging, semantic and video-grounded LLM judging, and deterministic rule-based checks.
-
-## 🧩 Benchmark Design
-
-### Instruction Structures
-
-| Structure | Description |
-|:---|:---|
-| **Single** | A direct task paired with one or more response constraints. |
-| **Multi** | Multiple requested operations or outputs composed within one instruction. |
-| **Selection** | Conditional alternatives whose active branch is determined from video evidence. |
-| **Nested** | Multi-level conditional instructions that require following the active reasoning path. |
-
-### Evaluation Protocol
-
-The scorer evaluates each response in three stages:
-
-1. **Task execution judging** checks whether the active task was attempted.
-2. **LLM-based constraint judging** evaluates semantic and video-grounded constraints.
-3. **Rule-based function judging** deterministically verifies constraints after a structured extraction step.
-
-The main metrics are:
-
-- **TCSR:** the task-gated average constraint satisfaction rate.
-- **TISR:** the task-gated strict instruction satisfaction rate, requiring all tasks and constraints to pass.
-
 ## 📊 Main Results
 
 <div align="center">
