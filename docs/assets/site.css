@@ -435,6 +435,14 @@ section {
   text-align: center;
 }
 
+.site-footer a {
+  color: inherit;
+}
+
+.site-footer a:hover {
+  color: var(--ink);
+}
+
 @media (max-width: 900px) {
   .result-summary,
   .figure-grid,
