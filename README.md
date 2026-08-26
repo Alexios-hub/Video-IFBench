@@ -111,15 +111,15 @@ The main metrics are:
                 </tr>
                 <tr>
                   <th scope="col" align="center" width="7.5%">TCSR</th>
-                  <th scope="col" align="center" width="7.5%">TISR</th>
+      <th scope="col" align="center" width="7.5%">&thinsp;TISR&thinsp;</th>
                   <th scope="col" align="center" width="7.5%">TCSR</th>
-                  <th scope="col" align="center" width="7.5%">TISR</th>
+      <th scope="col" align="center" width="7.5%">&thinsp;TISR&thinsp;</th>
                   <th scope="col" align="center" width="7.5%">TCSR</th>
-                  <th scope="col" align="center" width="7.5%">TISR</th>
+      <th scope="col" align="center" width="7.5%">&thinsp;TISR&thinsp;</th>
                   <th scope="col" align="center" width="7.5%">TCSR</th>
-                  <th scope="col" align="center" width="7.5%">TISR</th>
+      <th scope="col" align="center" width="7.5%">&thinsp;TISR&thinsp;</th>
                   <th scope="col" align="center" width="7.5%">TCSR</th>
-                  <th scope="col" align="center" width="7.5%">TISR</th>
+      <th scope="col" align="center" width="7.5%">&thinsp;TISR&thinsp;</th>
                 </tr>
               </thead>
               <tbody>
