@@ -93,539 +93,332 @@ The main metrics are:
 ## 📊 Main Results
 
 <div align="center">
-<table>
-              <caption>
-                <small>
-                  TCSR and TISR are reported for each instruction structure and the overall benchmark.<br>
-                  <strong>Best results within each model group are in bold.</strong>
-                </small>
-              </caption>
-              <thead>
-                <tr>
-                  <th scope="col" rowspan="2" align="left" width="25%">Model</th>
-                  <th scope="colgroup" align="center" colspan="2" width="15%">Single</th>
-                  <th scope="colgroup" align="center" colspan="2" width="15%">Multi</th>
-                  <th scope="colgroup" align="center" colspan="2" width="15%">Selection</th>
-                  <th scope="colgroup" align="center" colspan="2" width="15%">Nested</th>
-                  <th scope="colgroup" align="center" colspan="2" width="15%">Overall</th>
-                </tr>
-                <tr>
-                  <th scope="col" align="center" width="7.5%">TCSR</th>
-      <th scope="col" align="center" width="7.5%">&thinsp;TISR&thinsp;</th>
-                  <th scope="col" align="center" width="7.5%">TCSR</th>
-      <th scope="col" align="center" width="7.5%">&thinsp;TISR&thinsp;</th>
-                  <th scope="col" align="center" width="7.5%">TCSR</th>
-      <th scope="col" align="center" width="7.5%">&thinsp;TISR&thinsp;</th>
-                  <th scope="col" align="center" width="7.5%">TCSR</th>
-      <th scope="col" align="center" width="7.5%">&thinsp;TISR&thinsp;</th>
-                  <th scope="col" align="center" width="7.5%">TCSR</th>
-      <th scope="col" align="center" width="7.5%">&thinsp;TISR&thinsp;</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><th scope="rowgroup" colspan="11" align="center"><em>Proprietary Models</em></th></tr>
-                <tr>
-                  <th scope="row" align="left">Gemini-3-Pro</th>
-                  <td align="center"><strong>79.6</strong></td>
-                  <td align="center"><strong>52.3</strong></td>
-                  <td align="center"><strong>88.6</strong></td>
-                  <td align="center"><strong>58.8</strong></td>
-                  <td align="center"><strong>68.5</strong></td>
-                  <td align="center"><strong>59.2</strong></td>
-                  <td align="center"><strong>53.7</strong></td>
-                  <td align="center"><strong>46</strong></td>
-                  <td align="center"><strong>76.5</strong></td>
-                  <td align="center"><strong>54.5</strong></td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Gemini-3-Flash</th>
-                  <td align="center">76.7</td>
-                  <td align="center">49.2</td>
-                  <td align="center">87.6</td>
-                  <td align="center">56.4</td>
-                  <td align="center">63.9</td>
-                  <td align="center">54.8</td>
-                  <td align="center">39.9</td>
-                  <td align="center">30.7</td>
-                  <td align="center">72.2</td>
-                  <td align="center">49.5</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Doubao-Seed-2.0-Pro-260215</th>
-                  <td align="center">76.7</td>
-                  <td align="center">44.6</td>
-                  <td align="center">87.1</td>
-                  <td align="center">51.1</td>
-                  <td align="center">46.5</td>
-                  <td align="center">38.2</td>
-                  <td align="center">17.8</td>
-                  <td align="center">14.4</td>
-                  <td align="center">65.7</td>
-                  <td align="center">40.8</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">GPT-5.4</th>
-                  <td align="center">72.8</td>
-                  <td align="center">34.7</td>
-                  <td align="center">82.4</td>
-                  <td align="center">43.2</td>
-                  <td align="center">21.1</td>
-                  <td align="center">16.9</td>
-                  <td align="center">12.1</td>
-                  <td align="center">7.6</td>
-                  <td align="center">57.4</td>
-                  <td align="center">30.0</td>
-                </tr>
-              </tbody>
-              <tbody>
-                <tr><th scope="rowgroup" colspan="11" align="center"><em>Open-source Models (Instruct)</em></th></tr>
-                <tr>
-                  <th scope="row" align="left">Qwen2.5-Omni-3B</th>
-                  <td align="center">35.2</td>
-                  <td align="center">11.6</td>
-                  <td align="center">34.0</td>
-                  <td align="center">8.6</td>
-                  <td align="center">7.7</td>
-                  <td align="center">5.4</td>
-                  <td align="center">6.5</td>
-                  <td align="center">4.5</td>
-                  <td align="center">25.8</td>
-                  <td align="center">8.6</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen2.5-Omni-7B</th>
-                  <td align="center">46.3</td>
-                  <td align="center">16.6</td>
-                  <td align="center">48.6</td>
-                  <td align="center">14.9</td>
-                  <td align="center">15.6</td>
-                  <td align="center">11.5</td>
-                  <td align="center">8.9</td>
-                  <td align="center">5.5</td>
-                  <td align="center">36.0</td>
-                  <td align="center">13.5</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3-Omni-30B-A3B-Instruct</th>
-                  <td align="center">57.9</td>
-                  <td align="center">21.4</td>
-                  <td align="center">62.9</td>
-                  <td align="center">22.9</td>
-                  <td align="center">17.2</td>
-                  <td align="center">14.3</td>
-                  <td align="center">6.1</td>
-                  <td align="center">4.1</td>
-                  <td align="center">44.3</td>
-                  <td align="center">18.0</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Gemma-4-E4B-it</th>
-                  <td align="center">56.8</td>
-                  <td align="center">22.1</td>
-                  <td align="center">67.5</td>
-                  <td align="center">29.9</td>
-                  <td align="center">11.9</td>
-                  <td align="center">8.2</td>
-                  <td align="center">6.0</td>
-                  <td align="center">3.8</td>
-                  <td align="center">45.1</td>
-                  <td align="center">19.5</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Gemma-4-26B-A4B-it</th>
-                  <td align="center">71.6</td>
-                  <td align="center">35.7</td>
-                  <td align="center">79.2</td>
-                  <td align="center">41.1</td>
-                  <td align="center">22.7</td>
-                  <td align="center">19.4</td>
-                  <td align="center">7.1</td>
-                  <td align="center">4.5</td>
-                  <td align="center">55.6</td>
-                  <td align="center">29.7</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Gemma-4-31B-it</th>
-                  <td align="center"><strong>75.8</strong></td>
-                  <td align="center"><strong>43.0</strong></td>
-                  <td align="center">82.1</td>
-                  <td align="center"><strong>44.4</strong></td>
-                  <td align="center"><strong>29.9</strong></td>
-                  <td align="center"><strong>25.4</strong></td>
-                  <td align="center">13.8</td>
-                  <td align="center"><strong>10.0</strong></td>
-                  <td align="center"><strong>60.4</strong></td>
-                  <td align="center"><strong>35.4</strong></td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">InternVL3.5-8B-Instruct</th>
-                  <td align="center">53.4</td>
-                  <td align="center">19.1</td>
-                  <td align="center">63.6</td>
-                  <td align="center">21.8</td>
-                  <td align="center">16.3</td>
-                  <td align="center">10.1</td>
-                  <td align="center">7.6</td>
-                  <td align="center">3.5</td>
-                  <td align="center">43.1</td>
-                  <td align="center">16.0</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">InternVL3.5-14B-Instruct</th>
-                  <td align="center">56.2</td>
-                  <td align="center">19.1</td>
-                  <td align="center">66.3</td>
-                  <td align="center">22.6</td>
-                  <td align="center">18.6</td>
-                  <td align="center">12.5</td>
-                  <td align="center">6.2</td>
-                  <td align="center">3.5</td>
-                  <td align="center">45.1</td>
-                  <td align="center">16.6</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">InternVL3.5-30B-A3B-Instruct</th>
-                  <td align="center">57.0</td>
-                  <td align="center">19.2</td>
-                  <td align="center">65.9</td>
-                  <td align="center">24.8</td>
-                  <td align="center">21.2</td>
-                  <td align="center">13.8</td>
-                  <td align="center"><strong>16.2</strong></td>
-                  <td align="center">9.6</td>
-                  <td align="center">47.4</td>
-                  <td align="center">18.5</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">InternVL3.5-38B-Instruct</th>
-                  <td align="center">61.0</td>
-                  <td align="center">24.5</td>
-                  <td align="center">71.8</td>
-                  <td align="center">27.1</td>
-                  <td align="center">18.5</td>
-                  <td align="center">12.7</td>
-                  <td align="center">14.6</td>
-                  <td align="center">8.4</td>
-                  <td align="center">49.8</td>
-                  <td align="center">20.8</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">InternVL3.5-241B-A28B-Instruct</th>
-                  <td align="center">64.5</td>
-                  <td align="center">24.6</td>
-                  <td align="center">75.3</td>
-                  <td align="center">32.2</td>
-                  <td align="center">16.0</td>
-                  <td align="center">12.3</td>
-                  <td align="center">13.6</td>
-                  <td align="center">10.4</td>
-                  <td align="center">51.7</td>
-                  <td align="center">22.7</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3-VL-4B-Instruct</th>
-                  <td align="center">55.6</td>
-                  <td align="center">19.9</td>
-                  <td align="center">65.6</td>
-                  <td align="center">20.9</td>
-                  <td align="center">15.1</td>
-                  <td align="center">11.4</td>
-                  <td align="center">8.7</td>
-                  <td align="center">5.1</td>
-                  <td align="center">44.3</td>
-                  <td align="center">16.4</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3-VL-8B-Instruct</th>
-                  <td align="center">60.1</td>
-                  <td align="center">23.5</td>
-                  <td align="center">68.9</td>
-                  <td align="center">24.7</td>
-                  <td align="center">17.8</td>
-                  <td align="center">13.0</td>
-                  <td align="center">13.5</td>
-                  <td align="center">8.5</td>
-                  <td align="center">48.0</td>
-                  <td align="center">19.6</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3-VL-30B-A3B-Instruct</th>
-                  <td align="center">56.8</td>
-                  <td align="center">19.9</td>
-                  <td align="center">70.4</td>
-                  <td align="center">25.4</td>
-                  <td align="center">17.0</td>
-                  <td align="center">12.3</td>
-                  <td align="center">13.6</td>
-                  <td align="center">9.5</td>
-                  <td align="center">47.2</td>
-                  <td align="center">18.6</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3-VL-235B-A22B-Instruct</th>
-                  <td align="center">67.5</td>
-                  <td align="center">31.9</td>
-                  <td align="center">78.0</td>
-                  <td align="center">35.1</td>
-                  <td align="center">19.5</td>
-                  <td align="center">14.5</td>
-                  <td align="center">8.6</td>
-                  <td align="center">6.0</td>
-                  <td align="center">53.1</td>
-                  <td align="center">25.8</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3.5-4B-Instruct</th>
-                  <td align="center">54.6</td>
-                  <td align="center">22.0</td>
-                  <td align="center">65.5</td>
-                  <td align="center">23.3</td>
-                  <td align="center">15.2</td>
-                  <td align="center">8.8</td>
-                  <td align="center">7.9</td>
-                  <td align="center">4.0</td>
-                  <td align="center">43.9</td>
-                  <td align="center">17.3</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3.5-9B-Instruct</th>
-                  <td align="center">57.8</td>
-                  <td align="center">22.6</td>
-                  <td align="center">70.0</td>
-                  <td align="center">27.3</td>
-                  <td align="center">16.2</td>
-                  <td align="center">12.4</td>
-                  <td align="center">8.1</td>
-                  <td align="center">5.0</td>
-                  <td align="center">46.6</td>
-                  <td align="center">19.6</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3.5-27B-Instruct</th>
-                  <td align="center">66.7</td>
-                  <td align="center">29.1</td>
-                  <td align="center">77.8</td>
-                  <td align="center">33.8</td>
-                  <td align="center">23.0</td>
-                  <td align="center">18.0</td>
-                  <td align="center">11.7</td>
-                  <td align="center">6.9</td>
-                  <td align="center">54.0</td>
-                  <td align="center">25.2</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3.5-35B-A3B-Instruct</th>
-                  <td align="center">56.7</td>
-                  <td align="center">25.7</td>
-                  <td align="center">75.2</td>
-                  <td align="center">33.4</td>
-                  <td align="center">17.5</td>
-                  <td align="center">12.4</td>
-                  <td align="center">7.5</td>
-                  <td align="center">5.0</td>
-                  <td align="center">48.0</td>
-                  <td align="center">22.6</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3.5-122B-A10B-Instruct</th>
-                  <td align="center">62.7</td>
-                  <td align="center">29.1</td>
-                  <td align="center">79.8</td>
-                  <td align="center">36.8</td>
-                  <td align="center">20.3</td>
-                  <td align="center">14.5</td>
-                  <td align="center">9.5</td>
-                  <td align="center">5.5</td>
-                  <td align="center">52.5</td>
-                  <td align="center">25.3</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3.5-397B-A17B-Instruct</th>
-                  <td align="center">70.1</td>
-                  <td align="center">36.5</td>
-                  <td align="center"><strong>83.2</strong></td>
-                  <td align="center">40.8</td>
-                  <td align="center">24.3</td>
-                  <td align="center">18.9</td>
-                  <td align="center">12.2</td>
-                  <td align="center">7.9</td>
-                  <td align="center">57.3</td>
-                  <td align="center">30.4</td>
-                </tr>
-              </tbody>
-              <tbody>
-                <tr><th scope="rowgroup" colspan="11" align="center"><em>Open-source Models (Thinking)</em></th></tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3-Omni-30B-A3B-Think</th>
-                  <td align="center">66.6</td>
-                  <td align="center">30.0</td>
-                  <td align="center">75.1</td>
-                  <td align="center">36.8</td>
-                  <td align="center">24.8</td>
-                  <td align="center">18.5</td>
-                  <td align="center">10.1</td>
-                  <td align="center">5.5</td>
-                  <td align="center">53.1</td>
-                  <td align="center">26.2</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3-VL-30B-A3B-Think</th>
-                  <td align="center">60.7</td>
-                  <td align="center">23.9</td>
-                  <td align="center">68.2</td>
-                  <td align="center">31.3</td>
-                  <td align="center">22.2</td>
-                  <td align="center">17.1</td>
-                  <td align="center">8.5</td>
-                  <td align="center">5.5</td>
-                  <td align="center">47.9</td>
-                  <td align="center">22.0</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3-VL-235B-A22B-Think</th>
-                  <td align="center">74.7</td>
-                  <td align="center">37.7</td>
-                  <td align="center">84.4</td>
-                  <td align="center">45.0</td>
-                  <td align="center">31.4</td>
-                  <td align="center">24.9</td>
-                  <td align="center">14.1</td>
-                  <td align="center">10.3</td>
-                  <td align="center">60.9</td>
-                  <td align="center">33.5</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">InternVL3.5-8B-Think</th>
-                  <td align="center">53.7</td>
-                  <td align="center">18.0</td>
-                  <td align="center">63.8</td>
-                  <td align="center">21.6</td>
-                  <td align="center">18.4</td>
-                  <td align="center">13.7</td>
-                  <td align="center">9.6</td>
-                  <td align="center">6.5</td>
-                  <td align="center">43.8</td>
-                  <td align="center">16.5</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">InternVL3.5-14B-Think</th>
-                  <td align="center">55.9</td>
-                  <td align="center">18.7</td>
-                  <td align="center">67.1</td>
-                  <td align="center">24.7</td>
-                  <td align="center">19.4</td>
-                  <td align="center">14.7</td>
-                  <td align="center">12.3</td>
-                  <td align="center">7.5</td>
-                  <td align="center">46.4</td>
-                  <td align="center">18.1</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">InternVL3.5-30B-A3B-Think</th>
-                  <td align="center">54.4</td>
-                  <td align="center">18.0</td>
-                  <td align="center">67.8</td>
-                  <td align="center">26.1</td>
-                  <td align="center">25.6</td>
-                  <td align="center">17.1</td>
-                  <td align="center">11.9</td>
-                  <td align="center">7.6</td>
-                  <td align="center">47.0</td>
-                  <td align="center">18.7</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">InternVL3.5-38B-Think</th>
-                  <td align="center">58.8</td>
-                  <td align="center">21.4</td>
-                  <td align="center">71.2</td>
-                  <td align="center">24.8</td>
-                  <td align="center">18.3</td>
-                  <td align="center">11.6</td>
-                  <td align="center">16.4</td>
-                  <td align="center">10.5</td>
-                  <td align="center">49.1</td>
-                  <td align="center">19.1</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">InternVL3.5-241B-A28B-Think</th>
-                  <td align="center">64.9</td>
-                  <td align="center">22.7</td>
-                  <td align="center">76.4</td>
-                  <td align="center">33.8</td>
-                  <td align="center">20.5</td>
-                  <td align="center">15.8</td>
-                  <td align="center">11.8</td>
-                  <td align="center">6.5</td>
-                  <td align="center">52.5</td>
-                  <td align="center">22.3</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3.5-9B-Think</th>
-                  <td align="center">67.1</td>
-                  <td align="center">35.9</td>
-                  <td align="center">77.6</td>
-                  <td align="center">39.8</td>
-                  <td align="center">39.1</td>
-                  <td align="center">32.0</td>
-                  <td align="center">16.9</td>
-                  <td align="center">11.9</td>
-                  <td align="center">56.0</td>
-                  <td align="center">32.2</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3.5-27B-Think</th>
-                  <td align="center">74.0</td>
-                  <td align="center">40.1</td>
-                  <td align="center">82.2</td>
-                  <td align="center">46.3</td>
-                  <td align="center">42.1</td>
-                  <td align="center">34.0</td>
-                  <td align="center">24.7</td>
-                  <td align="center">20.0</td>
-                  <td align="center">62.5</td>
-                  <td align="center">37.5</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3.5-35B-A3B-Think</th>
-                  <td align="center">72.4</td>
-                  <td align="center">37.9</td>
-                  <td align="center">85.2</td>
-                  <td align="center">49.1</td>
-                  <td align="center">38.2</td>
-                  <td align="center">31.5</td>
-                  <td align="center">23.3</td>
-                  <td align="center">19.8</td>
-                  <td align="center">62.8</td>
-                  <td align="center">37.2</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3.5-122B-A10B-Think</th>
-                  <td align="center">77.0</td>
-                  <td align="center">45.6</td>
-                  <td align="center">84.2</td>
-                  <td align="center">50.1</td>
-                  <td align="center">46.5</td>
-                  <td align="center">39.4</td>
-                  <td align="center">23.9</td>
-                  <td align="center">19.7</td>
-                  <td align="center">65.2</td>
-                  <td align="center">41.7</td>
-                </tr>
-                <tr>
-                  <th scope="row" align="left">Qwen3.5-397B-A17B-Think</th>
-                  <td align="center"><strong>79.4</strong></td>
-                  <td align="center"><strong>48.5</strong></td>
-                  <td align="center"><strong>86.0</strong></td>
-                  <td align="center"><strong>52.8</strong></td>
-                  <td align="center"><strong>52.1</strong></td>
-                  <td align="center"><strong>44.9</strong></td>
-                  <td align="center"><strong>33.0</strong></td>
-                  <td align="center"><strong>28.2</strong></td>
-                  <td align="center"><strong>69.6</strong></td>
-                  <td align="center"><strong>46.1</strong></td>
-                </tr>
-              </tbody>
-            </table>
+<table width="100%">
+  <caption>
+    <small>
+      Values are reported as <strong>TCSR / TISR (%)</strong>. Best results within each model group are in bold.
+    </small>
+  </caption>
+  <thead>
+    <tr>
+      <th scope="col" align="left" width="25%">Model</th>
+      <th scope="col" align="center" width="15%">Single<br><sub>TCSR / TISR</sub></th>
+      <th scope="col" align="center" width="15%">Multi<br><sub>TCSR / TISR</sub></th>
+      <th scope="col" align="center" width="15%">Selection<br><sub>TCSR / TISR</sub></th>
+      <th scope="col" align="center" width="15%">Nested<br><sub>TCSR / TISR</sub></th>
+      <th scope="col" align="center" width="15%">Overall<br><sub>TCSR / TISR</sub></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><th scope="rowgroup" colspan="6" align="center"><em>Proprietary Models</em></th></tr>
+    <tr>
+      <th scope="row" align="left">Gemini-3-Pro</th>
+      <td align="center"><strong>79.6</strong> / <strong>52.3</strong></td>
+      <td align="center"><strong>88.6</strong> / <strong>58.8</strong></td>
+      <td align="center"><strong>68.5</strong> / <strong>59.2</strong></td>
+      <td align="center"><strong>53.7</strong> / <strong>46</strong></td>
+      <td align="center"><strong>76.5</strong> / <strong>54.5</strong></td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Gemini-3-Flash</th>
+      <td align="center">76.7 / 49.2</td>
+      <td align="center">87.6 / 56.4</td>
+      <td align="center">63.9 / 54.8</td>
+      <td align="center">39.9 / 30.7</td>
+      <td align="center">72.2 / 49.5</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Doubao-Seed-2.0-Pro-260215</th>
+      <td align="center">76.7 / 44.6</td>
+      <td align="center">87.1 / 51.1</td>
+      <td align="center">46.5 / 38.2</td>
+      <td align="center">17.8 / 14.4</td>
+      <td align="center">65.7 / 40.8</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">GPT-5.4</th>
+      <td align="center">72.8 / 34.7</td>
+      <td align="center">82.4 / 43.2</td>
+      <td align="center">21.1 / 16.9</td>
+      <td align="center">12.1 / 7.6</td>
+      <td align="center">57.4 / 30.0</td>
+    </tr>
+    <tr><th scope="rowgroup" colspan="6" align="center"><em>Open-source Models (Instruct)</em></th></tr>
+    <tr>
+      <th scope="row" align="left">Qwen2.5-Omni-3B</th>
+      <td align="center">35.2 / 11.6</td>
+      <td align="center">34.0 / 8.6</td>
+      <td align="center">7.7 / 5.4</td>
+      <td align="center">6.5 / 4.5</td>
+      <td align="center">25.8 / 8.6</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen2.5-Omni-7B</th>
+      <td align="center">46.3 / 16.6</td>
+      <td align="center">48.6 / 14.9</td>
+      <td align="center">15.6 / 11.5</td>
+      <td align="center">8.9 / 5.5</td>
+      <td align="center">36.0 / 13.5</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen3-Omni-30B-A3B-Instruct</th>
+      <td align="center">57.9 / 21.4</td>
+      <td align="center">62.9 / 22.9</td>
+      <td align="center">17.2 / 14.3</td>
+      <td align="center">6.1 / 4.1</td>
+      <td align="center">44.3 / 18.0</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Gemma-4-E4B-it</th>
+      <td align="center">56.8 / 22.1</td>
+      <td align="center">67.5 / 29.9</td>
+      <td align="center">11.9 / 8.2</td>
+      <td align="center">6.0 / 3.8</td>
+      <td align="center">45.1 / 19.5</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Gemma-4-26B-A4B-it</th>
+      <td align="center">71.6 / 35.7</td>
+      <td align="center">79.2 / 41.1</td>
+      <td align="center">22.7 / 19.4</td>
+      <td align="center">7.1 / 4.5</td>
+      <td align="center">55.6 / 29.7</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Gemma-4-31B-it</th>
+      <td align="center"><strong>75.8</strong> / <strong>43.0</strong></td>
+      <td align="center">82.1 / <strong>44.4</strong></td>
+      <td align="center"><strong>29.9</strong> / <strong>25.4</strong></td>
+      <td align="center">13.8 / <strong>10.0</strong></td>
+      <td align="center"><strong>60.4</strong> / <strong>35.4</strong></td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">InternVL3.5-8B-Instruct</th>
+      <td align="center">53.4 / 19.1</td>
+      <td align="center">63.6 / 21.8</td>
+      <td align="center">16.3 / 10.1</td>
+      <td align="center">7.6 / 3.5</td>
+      <td align="center">43.1 / 16.0</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">InternVL3.5-14B-Instruct</th>
+      <td align="center">56.2 / 19.1</td>
+      <td align="center">66.3 / 22.6</td>
+      <td align="center">18.6 / 12.5</td>
+      <td align="center">6.2 / 3.5</td>
+      <td align="center">45.1 / 16.6</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">InternVL3.5-30B-A3B-Instruct</th>
+      <td align="center">57.0 / 19.2</td>
+      <td align="center">65.9 / 24.8</td>
+      <td align="center">21.2 / 13.8</td>
+      <td align="center"><strong>16.2</strong> / 9.6</td>
+      <td align="center">47.4 / 18.5</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">InternVL3.5-38B-Instruct</th>
+      <td align="center">61.0 / 24.5</td>
+      <td align="center">71.8 / 27.1</td>
+      <td align="center">18.5 / 12.7</td>
+      <td align="center">14.6 / 8.4</td>
+      <td align="center">49.8 / 20.8</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">InternVL3.5-241B-A28B-Instruct</th>
+      <td align="center">64.5 / 24.6</td>
+      <td align="center">75.3 / 32.2</td>
+      <td align="center">16.0 / 12.3</td>
+      <td align="center">13.6 / 10.4</td>
+      <td align="center">51.7 / 22.7</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen3-VL-4B-Instruct</th>
+      <td align="center">55.6 / 19.9</td>
+      <td align="center">65.6 / 20.9</td>
+      <td align="center">15.1 / 11.4</td>
+      <td align="center">8.7 / 5.1</td>
+      <td align="center">44.3 / 16.4</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen3-VL-8B-Instruct</th>
+      <td align="center">60.1 / 23.5</td>
+      <td align="center">68.9 / 24.7</td>
+      <td align="center">17.8 / 13.0</td>
+      <td align="center">13.5 / 8.5</td>
+      <td align="center">48.0 / 19.6</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen3-VL-30B-A3B-Instruct</th>
+      <td align="center">56.8 / 19.9</td>
+      <td align="center">70.4 / 25.4</td>
+      <td align="center">17.0 / 12.3</td>
+      <td align="center">13.6 / 9.5</td>
+      <td align="center">47.2 / 18.6</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen3-VL-235B-A22B-Instruct</th>
+      <td align="center">67.5 / 31.9</td>
+      <td align="center">78.0 / 35.1</td>
+      <td align="center">19.5 / 14.5</td>
+      <td align="center">8.6 / 6.0</td>
+      <td align="center">53.1 / 25.8</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen3.5-4B-Instruct</th>
+      <td align="center">54.6 / 22.0</td>
+      <td align="center">65.5 / 23.3</td>
+      <td align="center">15.2 / 8.8</td>
+      <td align="center">7.9 / 4.0</td>
+      <td align="center">43.9 / 17.3</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen3.5-9B-Instruct</th>
+      <td align="center">57.8 / 22.6</td>
+      <td align="center">70.0 / 27.3</td>
+      <td align="center">16.2 / 12.4</td>
+      <td align="center">8.1 / 5.0</td>
+      <td align="center">46.6 / 19.6</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen3.5-27B-Instruct</th>
+      <td align="center">66.7 / 29.1</td>
+      <td align="center">77.8 / 33.8</td>
+      <td align="center">23.0 / 18.0</td>
+      <td align="center">11.7 / 6.9</td>
+      <td align="center">54.0 / 25.2</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen3.5-35B-A3B-Instruct</th>
+      <td align="center">56.7 / 25.7</td>
+      <td align="center">75.2 / 33.4</td>
+      <td align="center">17.5 / 12.4</td>
+      <td align="center">7.5 / 5.0</td>
+      <td align="center">48.0 / 22.6</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen3.5-122B-A10B-Instruct</th>
+      <td align="center">62.7 / 29.1</td>
+      <td align="center">79.8 / 36.8</td>
+      <td align="center">20.3 / 14.5</td>
+      <td align="center">9.5 / 5.5</td>
+      <td align="center">52.5 / 25.3</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen3.5-397B-A17B-Instruct</th>
+      <td align="center">70.1 / 36.5</td>
+      <td align="center"><strong>83.2</strong> / 40.8</td>
+      <td align="center">24.3 / 18.9</td>
+      <td align="center">12.2 / 7.9</td>
+      <td align="center">57.3 / 30.4</td>
+    </tr>
+    <tr><th scope="rowgroup" colspan="6" align="center"><em>Open-source Models (Thinking)</em></th></tr>
+    <tr>
+      <th scope="row" align="left">Qwen3-Omni-30B-A3B-Think</th>
+      <td align="center">66.6 / 30.0</td>
+      <td align="center">75.1 / 36.8</td>
+      <td align="center">24.8 / 18.5</td>
+      <td align="center">10.1 / 5.5</td>
+      <td align="center">53.1 / 26.2</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen3-VL-30B-A3B-Think</th>
+      <td align="center">60.7 / 23.9</td>
+      <td align="center">68.2 / 31.3</td>
+      <td align="center">22.2 / 17.1</td>
+      <td align="center">8.5 / 5.5</td>
+      <td align="center">47.9 / 22.0</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen3-VL-235B-A22B-Think</th>
+      <td align="center">74.7 / 37.7</td>
+      <td align="center">84.4 / 45.0</td>
+      <td align="center">31.4 / 24.9</td>
+      <td align="center">14.1 / 10.3</td>
+      <td align="center">60.9 / 33.5</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">InternVL3.5-8B-Think</th>
+      <td align="center">53.7 / 18.0</td>
+      <td align="center">63.8 / 21.6</td>
+      <td align="center">18.4 / 13.7</td>
+      <td align="center">9.6 / 6.5</td>
+      <td align="center">43.8 / 16.5</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">InternVL3.5-14B-Think</th>
+      <td align="center">55.9 / 18.7</td>
+      <td align="center">67.1 / 24.7</td>
+      <td align="center">19.4 / 14.7</td>
+      <td align="center">12.3 / 7.5</td>
+      <td align="center">46.4 / 18.1</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">InternVL3.5-30B-A3B-Think</th>
+      <td align="center">54.4 / 18.0</td>
+      <td align="center">67.8 / 26.1</td>
+      <td align="center">25.6 / 17.1</td>
+      <td align="center">11.9 / 7.6</td>
+      <td align="center">47.0 / 18.7</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">InternVL3.5-38B-Think</th>
+      <td align="center">58.8 / 21.4</td>
+      <td align="center">71.2 / 24.8</td>
+      <td align="center">18.3 / 11.6</td>
+      <td align="center">16.4 / 10.5</td>
+      <td align="center">49.1 / 19.1</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">InternVL3.5-241B-A28B-Think</th>
+      <td align="center">64.9 / 22.7</td>
+      <td align="center">76.4 / 33.8</td>
+      <td align="center">20.5 / 15.8</td>
+      <td align="center">11.8 / 6.5</td>
+      <td align="center">52.5 / 22.3</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen3.5-9B-Think</th>
+      <td align="center">67.1 / 35.9</td>
+      <td align="center">77.6 / 39.8</td>
+      <td align="center">39.1 / 32.0</td>
+      <td align="center">16.9 / 11.9</td>
+      <td align="center">56.0 / 32.2</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen3.5-27B-Think</th>
+      <td align="center">74.0 / 40.1</td>
+      <td align="center">82.2 / 46.3</td>
+      <td align="center">42.1 / 34.0</td>
+      <td align="center">24.7 / 20.0</td>
+      <td align="center">62.5 / 37.5</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen3.5-35B-A3B-Think</th>
+      <td align="center">72.4 / 37.9</td>
+      <td align="center">85.2 / 49.1</td>
+      <td align="center">38.2 / 31.5</td>
+      <td align="center">23.3 / 19.8</td>
+      <td align="center">62.8 / 37.2</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen3.5-122B-A10B-Think</th>
+      <td align="center">77.0 / 45.6</td>
+      <td align="center">84.2 / 50.1</td>
+      <td align="center">46.5 / 39.4</td>
+      <td align="center">23.9 / 19.7</td>
+      <td align="center">65.2 / 41.7</td>
+    </tr>
+    <tr>
+      <th scope="row" align="left">Qwen3.5-397B-A17B-Think</th>
+      <td align="center"><strong>79.4</strong> / <strong>48.5</strong></td>
+      <td align="center"><strong>86.0</strong> / <strong>52.8</strong></td>
+      <td align="center"><strong>52.1</strong> / <strong>44.9</strong></td>
+      <td align="center"><strong>33.0</strong> / <strong>28.2</strong></td>
+      <td align="center"><strong>69.6</strong> / <strong>46.1</strong></td>
+    </tr>
+  </tbody>
+</table>
 </div>
 
 ## 🚀 Getting Started
