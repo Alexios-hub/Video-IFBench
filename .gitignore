@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+.venv/
+data/
+outputs/
+.cache/
+tmp/
+.pytest_cache/
+*.response.json
+_instruction_following_report*.json
+.DS_Store

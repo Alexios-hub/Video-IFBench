@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "video-ifbench"
+version = "0.1.0"
+description = "Open code for evaluating video instruction following on Video-IFBench."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "huggingface_hub>=0.22.0",
+  "requests>=2.31.0",
+  "tqdm>=4.66.0",
+  "pillow>=10.0.0",
+  "opencv-python>=4.8.0",
+]
+
+[project.scripts]
+video-ifbench-run = "video_ifbench.run:main"
+video-ifbench-score = "video_ifbench.score:main"
+video-ifbench-summarize = "video_ifbench.summarize:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["video_ifbench*"]

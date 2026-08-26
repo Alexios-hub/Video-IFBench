@@ -1,0 +1,122 @@
+a {
+    color: #0055AA;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.button-img {
+    padding: 0;
+    margin: 5px;
+    border: 3px solid #ccc;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    width: 100px;
+}
+.button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: 2px solid #ccc;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+.button.active {
+    background-color: #0055aa;
+    color: white;
+}
+.button-img.active {
+    border: 3px solid #0055aa;
+}
+.citation-block {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.citation-content {
+    font-family: monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.resource-button {
+    display: inline-block;
+    background:rgb(35, 38, 59);
+    color: #FFFFFF;
+    border-radius: 30px;
+    padding: 8px 16px 7px;
+    transition: transform 200ms;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 1px, rgba(0, 0, 0, 0.24) 0px 1px 1px;
+
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.5rem;
+    font-size: 1.0rem;
+}
+
+.resource-button:hover{
+    color: #FFFFFF;
+}
+
+.button-icon {
+    height: 1.5rem;
+    margin-right: 0.1rem;
+    margin-bottom: 0.2rem;
+}
+
+.approach-figure {
+    max-width: 100%;
+    /* Responsive media */
+    height: auto;
+    display: block;
+}
+
+.body-text {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.8rem;
+    font-size: 1.0rem;
+}
+
+.text-title {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    line-height: 3rem;
+    font-size: 2.3rem;
+}
+
+.text-venue {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    line-height: 2.0rem;
+    font-size: 1.5rem;
+}
+
+.text-author {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.3rem;
+    font-size: 1.1rem;
+}
+
+.text-header {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    line-height: 2.5rem;
+    font-size: 2.0rem;
+    margin-top: 0.4rem;
+    text-align: center;
+}
+
+.text-reference {
+    font-family: 'Open Sans', sans-serif;
+    text-align: left;
+    font-size: 0.7em;
+}
