@@ -60,15 +60,98 @@
   <img src="docs/assets/paper/overview.webp" alt="Overview of the Video-IFBench construction and evaluation pipeline" width="100%">
 </p>
 
+## 🚀 Getting Started
+
+### Installation
+
+```bash
+git clone https://github.com/Alexios-hub/Video-IFBench.git
+cd Video-IFBench
+pip install -e .
+```
+
+### Dataset Preparation
+
+Download the evaluation split from [Hugging Face](https://huggingface.co/datasets/Alexislhb/Video-IFBench):
+
+```bash
+huggingface-cli download Alexislhb/Video-IFBench \
+  --repo-type dataset \
+  --local-dir data/Video-IFBench
+```
+
+The runner expects the following layout:
+
+```text
+data/Video-IFBench/
+├── annotations/
+│   └── annotations.jsonl
+├── videos/
+│   └── <video files>
+└── subtitles/                 # optional timestamped ASR files
+    └── <subtitle files>
+```
+
+Use this directory as `--dataset-root` when running inference.
+
+### Run Inference
+
+The runner supports OpenAI-compatible endpoints, including OpenAI-style APIs, vLLM, SGLang, and other compatible servers.
+
+```bash
+video-ifbench-run \
+  --dataset-root data/Video-IFBench \
+  --output-dir outputs/model_name \
+  --api-base http://localhost:8000/v1 \
+  --model model_name \
+  --media-mode video-url \
+  --concurrency 32 \
+  --resume
+```
+
+Each output file is a `*.response.json` record containing the model response and the metadata required for scoring.
+
+If timestamped ASR files are available under `data/Video-IFBench/subtitles`, add `--use-asr` to append the paired transcript to the model input. Use `--subtitle-dir PATH` to point to another subtitle directory.
+
+To retry only failed response files, use `--resume --retry-errors`. If a vLLM/Qwen endpoint does not accept `video-url` inputs, switch to `--media-mode frames --max-frames 32` to decode and sample frames locally.
+
+### Score Responses
+
+```bash
+video-ifbench-score \
+  --response-dir outputs/model_name \
+  --output-json outputs/model_name/_instruction_following_report.json \
+  --judge-api-base http://localhost:8001/v1 \
+  --judge-model judge_model_name \
+  --concurrency 16
+```
+
+Judge calls send `chat_template_kwargs={"enable_thinking": false}` by default. Use `--enable-thinking` to enable thinking, or `--thinking-mode auto` to omit this override for endpoints that do not accept it.
+
+### Summarize Metrics
+
+```bash
+video-ifbench-summarize \
+  --report outputs/model_name/_instruction_following_report.json \
+  --model-name "model_name" \
+  --format latex
+```
+
+The summarizer supports `latex`, `json`, and `csv` output formats.
+
+### Usage Notes
+
+- Model inference uses `--concurrency 32` by default.
+- With `--resume`, use `--retry-errors` and `--retry-empty` for targeted reruns.
+- Response scoring supports configurable `--concurrency`; tune it to the judge server throughput.
+- Judge thinking is disabled by default to keep judge outputs JSON-only.
+- The default media path sends each local video as a `video_url`. Frame mode additionally supports `--fps`, `--max-frames`, and `--max-video-long-side`.
+- The dataset is already cleaned to the final benchmark split; no additional filtering flag is required.
+
 ## 📊 Main Results
 
 <div align="center">
 <table width="100%">
-  <caption>
-    <small>
-      TCSR and TISR are reported in percent to three significant figures. Best results within each model group are in bold.
-    </small>
-  </caption>
   <thead>
     <tr>
       <th scope="col" rowspan="2" align="left" width="25%">Model</th>
@@ -592,94 +675,6 @@
   </tbody>
 </table>
 </div>
-
-## 🚀 Getting Started
-
-### Installation
-
-```bash
-git clone https://github.com/Alexios-hub/Video-IFBench.git
-cd Video-IFBench
-pip install -e .
-```
-
-### Dataset Preparation
-
-Download the public evaluation split from [Hugging Face](https://huggingface.co/datasets/Alexislhb/Video-IFBench):
-
-```bash
-huggingface-cli download Alexislhb/Video-IFBench \
-  --repo-type dataset \
-  --local-dir data/Video-IFBench
-```
-
-The runner expects the following layout:
-
-```text
-data/Video-IFBench/
-├── annotations/
-│   └── annotations.jsonl
-├── videos/
-│   └── <video files>
-└── subtitles/                 # optional timestamped ASR files
-    └── <subtitle files>
-```
-
-Use this directory as `--dataset-root` when running inference.
-
-### Run Inference
-
-The public runner supports OpenAI-compatible endpoints, including OpenAI-style APIs, vLLM, SGLang, and other compatible servers.
-
-```bash
-video-ifbench-run \
-  --dataset-root data/Video-IFBench \
-  --output-dir outputs/model_name \
-  --api-base http://localhost:8000/v1 \
-  --model model_name \
-  --media-mode video-url \
-  --concurrency 32 \
-  --resume
-```
-
-Each output file is a `*.response.json` record containing the model response and the metadata required for scoring.
-
-If timestamped ASR files are available under `data/Video-IFBench/subtitles`, add `--use-asr` to append the paired transcript to the model input. Use `--subtitle-dir PATH` to point to another subtitle directory.
-
-To retry only failed response files, use `--resume --retry-errors`. If a vLLM/Qwen endpoint does not accept `video-url` inputs, switch to `--media-mode frames --max-frames 32` to decode and sample frames locally.
-
-### Score Responses
-
-```bash
-video-ifbench-score \
-  --response-dir outputs/model_name \
-  --output-json outputs/model_name/_instruction_following_report.json \
-  --judge-api-base http://localhost:8001/v1 \
-  --judge-model judge_model_name \
-  --concurrency 16
-```
-
-Judge calls send `chat_template_kwargs={"enable_thinking": false}` by default. Use `--enable-thinking` to enable thinking, or `--thinking-mode auto` to omit this override for endpoints that do not accept it.
-
-### Summarize Metrics
-
-```bash
-video-ifbench-summarize \
-  --report outputs/model_name/_instruction_following_report.json \
-  --model-name "model_name" \
-  --format latex
-```
-
-The summarizer supports `latex`, `json`, and `csv` output formats.
-
-### Usage Notes
-
-- Model inference uses `--concurrency 32` by default.
-- With `--resume`, use `--retry-errors` and `--retry-empty` for targeted reruns.
-- Response scoring supports configurable `--concurrency`; tune it to the judge server throughput.
-- Judge thinking is disabled by default to keep judge outputs JSON-only.
-- The default media path sends each local video as a `video_url`. Frame mode additionally supports `--fps`, `--max-frames`, and `--max-video-long-side`.
-- The public dataset is already cleaned to the final benchmark split; no additional filtering flag is required.
 
 ## 🗂️ Repository Structure
 
