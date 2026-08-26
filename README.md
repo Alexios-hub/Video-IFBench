@@ -111,9 +111,7 @@ video-ifbench-run \
 
 Each output file is a `*.response.json` record containing the model response and the metadata required for scoring.
 
-If timestamped ASR files are available under `data/Video-IFBench/subtitles`, add `--use-asr` to append the paired transcript to the model input. Use `--subtitle-dir PATH` to point to another subtitle directory.
-
-To retry only failed response files, use `--resume --retry-errors`. If a vLLM/Qwen endpoint does not accept `video-url` inputs, switch to `--media-mode frames --max-frames 32` to decode and sample frames locally.
+Add `--use-asr` to use timestamped ASR.
 
 ### Score Responses
 
@@ -126,8 +124,6 @@ video-ifbench-score \
   --concurrency 16
 ```
 
-Judge calls send `chat_template_kwargs={"enable_thinking": false}` by default. Use `--enable-thinking` to enable thinking, or `--thinking-mode auto` to omit this override for endpoints that do not accept it.
-
 ### Summarize Metrics
 
 ```bash
@@ -136,17 +132,6 @@ video-ifbench-summarize \
   --model-name "model_name" \
   --format latex
 ```
-
-The summarizer supports `latex`, `json`, and `csv` output formats.
-
-### Usage Notes
-
-- Model inference uses `--concurrency 32` by default.
-- With `--resume`, use `--retry-errors` and `--retry-empty` for targeted reruns.
-- Response scoring supports configurable `--concurrency`; tune it to the judge server throughput.
-- Judge thinking is disabled by default to keep judge outputs JSON-only.
-- The default media path sends each local video as a `video_url`. Frame mode additionally supports `--fps`, `--max-frames`, and `--max-video-long-side`.
-- The dataset is already cleaned to the final benchmark split; no additional filtering flag is required.
 
 ## 📊 Main Results
 
