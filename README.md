@@ -692,7 +692,3 @@ If this benchmark or toolkit is useful in your work, please cite the manuscript:
   year   = {2026}
 }
 ```
-
-## 📄 License
-
-The released [Video-IFBench dataset](https://huggingface.co/datasets/Alexislhb/Video-IFBench) is provided under the [CC BY-NC 4.0 license](https://creativecommons.org/licenses/by-nc/4.0/), as specified by its dataset card. This dataset license does not automatically apply to the evaluation code; consult the repository's code license once one is published.
