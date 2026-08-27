@@ -47,7 +47,9 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Paper-arXiv%20pending-B31B1B?logo=arxiv" alt="Paper: arXiv pending">
+  <a href="https://arxiv.org/pdf/2608.25529">
+    <img src="https://img.shields.io/badge/Paper-arXiv-B31B1B?logo=arxiv" alt="Paper">
+  </a>
   <a href="https://alexios-hub.github.io/Video-IFBench/">
     <img src="https://img.shields.io/badge/Project%20Page-Website-lightgrey?logo=googlechrome" alt="Project Page">
   </a>
@@ -686,9 +688,13 @@ Video-IFBench/
 If this benchmark or toolkit is useful in your work, please cite the manuscript:
 
 ```bibtex
-@misc{videoifbench2026,
-  title  = {Video-IFBench: Evaluating Instruction Following of Multimodal LLMs in Video Understanding Scenarios},
-  author = {Hongbo Liu and Peixian Chen and Sihan Liu and Peiyuan Zhang and Kai Zou and Dian Zheng and Xiaoxing Hu and Yuhao Dong and Mengdan Zhang and Yunhang Shen and Haoyu Cao and Wei Liu and Weibo Gu and Xing Sun and Shengjie Zhao},
-  year   = {2026}
+@misc{liu2026videoifbenchevaluatinginstructionfollowing,
+  title         = {Video-IFBench: Evaluating Instruction Following of Multimodal LLMs in Video Understanding Scenarios},
+  author        = {Hongbo Liu and Peixian Chen and Sihan Liu and Peiyuan Zhang and Kai Zou and Dian Zheng and Xiaoxing Hu and Yuhao Dong and Mengdan Zhang and Yunhang Shen and Haoyu Cao and Wei Liu and Weibo Gu and Xing Sun and Shengjie Zhao},
+  year          = {2026},
+  eprint        = {2608.25529},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  url           = {https://arxiv.org/abs/2608.25529}
 }
 ```
